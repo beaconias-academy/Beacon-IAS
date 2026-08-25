@@ -1,0 +1,8 @@
+{
+  "appId": "com.beacon.ias",
+  "appName": "Beacon IAS",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  }
+}

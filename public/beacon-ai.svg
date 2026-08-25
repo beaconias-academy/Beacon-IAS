@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A192F" />
+      <stop offset="50%" stop-color="#1E3A8A" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
+
+    <!-- Beacon Gold Glow -->
+    <linearGradient id="goldGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE68A" />
+      <stop offset="50%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+
+    <!-- Sapphire Core Glow -->
+    <linearGradient id="sapphireGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#60A5FA" />
+      <stop offset="50%" stop-color="#2563EB" />
+      <stop offset="100%" stop-color="#1D4ED8" />
+    </linearGradient>
+
+    <!-- Ring Glow Gradient -->
+    <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B" />
+      <stop offset="50%" stop-color="#3B82F6" />
+      <stop offset="100%" stop-color="#10B981" />
+    </linearGradient>
+
+    <!-- Soft Filter Glow -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <radialGradient id="lightBeam" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#FBBF24" stop-opacity="0.8" />
+      <stop offset="40%" stop-color="#F59E0B" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#1E3A8A" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Base Circle Background -->
+  <circle cx="100" cy="100" r="92" fill="url(#bgGrad)" stroke="url(#ringGrad)" stroke-width="4" filter="url(#glow)" />
+  
+  <!-- Subtle Ambient Glow -->
+  <circle cx="100" cy="100" r="75" fill="url(#lightBeam)" />
+
+  <!-- Radiating Beacon Rays -->
+  <g opacity="0.6" stroke="#FDE68A" stroke-width="1.5" stroke-dasharray="3 3">
+    <line x1="100" y1="25" x2="100" y2="45" />
+    <line x1="100" y1="155" x2="100" y2="175" />
+    <line x1="25" y1="100" x2="45" y2="100" />
+    <line x1="155" y1="100" x2="175" y2="100" />
+    <line x1="47" y1="47" x2="61" y2="61" />
+    <line x1="139" y1="139" x2="153" y2="153" />
+    <line x1="47" y1="153" x2="61" y2="139" />
+    <line x1="139" y1="61" x2="153" y2="47" />
+  </g>
+
+  <!-- Futuristic Orbit Ring -->
+  <ellipse cx="100" cy="100" rx="65" ry="24" fill="none" stroke="#60A5FA" stroke-width="2" stroke-opacity="0.7" transform="rotate(-25 100 100)" />
+  <circle cx="148" cy="80" r="4" fill="#F59E0B" filter="url(#glow)" />
+
+  <!-- Beacon Tower & AI Core -->
+  <!-- Lighthouse Tower Silhouette -->
+  <path d="M86 142 L92 90 L108 90 L114 142 Z" fill="url(#sapphireGrad)" opacity="0.9" />
+  
+  <!-- Tower Base Pedestal -->
+  <path d="M80 142 L120 142 L116 150 L84 150 Z" fill="#1E293B" stroke="#60A5FA" stroke-width="1" />
+
+  <!-- Lighthouse Lantern Room (Glowing Orb) -->
+  <circle cx="100" cy="80" r="18" fill="url(#goldGlow)" filter="url(#glow)" />
+  <circle cx="100" cy="80" r="12" fill="#FFFBEB" />
+  
+  <!-- AI Neural Core Lines in Lantern -->
+  <path d="M94 80 L106 80 M100 74 L100 86" stroke="#D97706" stroke-width="2" stroke-linecap="round" />
+
+  <!-- Beacon Light Beams Sweeping Out -->
+  <polygon points="100,80 30,55 35,45" fill="#FBBF24" opacity="0.4" filter="url(#glow)" />
+  <polygon points="100,80 170,55 165,45" fill="#FBBF24" opacity="0.4" filter="url(#glow)" />
+
+  <!-- Top Crown Finial -->
+  <path d="M96 62 L100 52 L104 62 Z" fill="url(#goldGlow)" />
+  <circle cx="100" cy="50" r="3" fill="#FDE68A" filter="url(#glow)" />
+
+  <!-- Sparkling Intelligence Starlets -->
+  <circle cx="70" cy="65" r="2.5" fill="#FDE68A" />
+  <circle cx="132" cy="115" r="2" fill="#93C5FD" />
+  <circle cx="68" cy="120" r="2" fill="#FBBF24" />
+</svg>
