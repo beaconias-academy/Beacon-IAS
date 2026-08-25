@@ -60,13 +60,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
         >
           <img
             src={ASSETS.beaconLogo}
-            alt="BEACON IAS"
+            alt="Beacon IAS"
             className="w-9 h-9 rounded-xl object-cover ring-2 ring-amber-400/50 shadow-md group-hover:scale-105 transition-transform"
           />
           <div>
             <div className="flex items-center gap-1.5">
               <span className="font-extrabold text-base tracking-tight text-white font-sans">
-                BEACON IAS
+                Beacon IAS
               </span>
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             </div>

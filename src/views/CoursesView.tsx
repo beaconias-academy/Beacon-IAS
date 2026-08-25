@@ -88,8 +88,8 @@ export const CoursesView: React.FC<CoursesViewProps> = ({
             {/* Beacon IAS Video Watermark (Top Left) */}
             <div className="absolute top-3.5 left-3.5 flex items-center gap-1.5 px-3 py-1 bg-black/75 backdrop-blur-md rounded-full border border-amber-400/40 z-20 shadow-md">
               <img src="/beacon-logo.png" alt="Beacon IAS" className="w-4 h-4 rounded-full object-cover" />
-              <span className="text-[9px] font-extrabold text-amber-400 tracking-widest uppercase">
-                BEACON IAS
+              <span className="text-[9px] font-extrabold text-amber-400 tracking-widest">
+                Beacon IAS
               </span>
             </div>
 

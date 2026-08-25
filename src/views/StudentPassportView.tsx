@@ -76,12 +76,12 @@ export const StudentPassportView: React.FC<StudentPassportViewProps> = ({
                   <div className="flex items-center gap-2.5">
                     <img
                       src="/beacon-logo.png"
-                      alt="BEACON IAS"
+                      alt="Beacon IAS"
                       className="w-8 h-8 rounded-xl object-cover ring-1 ring-amber-400 shadow-sm"
                     />
                     <div>
-                      <span className="font-extrabold tracking-wider text-xs uppercase block leading-tight text-white font-sans">
-                        BEACON IAS PASSPORT
+                      <span className="font-extrabold tracking-wider text-xs block leading-tight text-white font-sans">
+                        Beacon IAS Passport
                       </span>
                       <span className="text-[9px] text-amber-300 font-mono tracking-widest uppercase">
                         Civil Services Digital ID

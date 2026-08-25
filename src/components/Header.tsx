@@ -105,7 +105,7 @@ export const Header: React.FC<HeaderProps> = ({
               >
                 <img
                   src={ASSETS.beaconLogo}
-                  alt="BEACON IAS"
+                  alt="Beacon IAS"
                   className="h-8 w-8 rounded-xl object-cover ring-2 ring-amber-400/50 shadow-sm"
                 />
               </button>

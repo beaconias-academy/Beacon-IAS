@@ -79,7 +79,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
         <div className="p-3.5 border-b border-slate-100 flex items-center gap-2.5 bg-slate-50">
           <img
             src="/beacon-logo.png"
-            alt="BEACON IAS"
+            alt="Beacon IAS"
             className="w-7 h-7 rounded-xl object-cover ring-1 ring-amber-400/50 shrink-0"
           />
           <input

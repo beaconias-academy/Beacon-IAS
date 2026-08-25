@@ -1,5 +1,5 @@
 {
-  "name": "BEACON Operating System",
+  "name": "Beacon IAS Operating System",
   "description": "Career & Education Operating System with Student, Mentor, and Admin Dashboards, Career Roadmaps, and AI Assistant.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
