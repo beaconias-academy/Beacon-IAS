@@ -11,7 +11,7 @@ import {
 } from '../types';
 
 export const ASSETS = {
-  beaconLogo: '/beacon-logo.png',
+  beaconLogo: '/logo.png',
   beaconAiAvatar: '/beacon-ai.svg',
   userAvatar:
     'https://lh3.googleusercontent.com/aida-public/AB6AXuCMumg13Yslx1C1qwaMX1EWk3u0cXRZkomwAaX0JJHxJZm1A5o1v7B3WJd0jrts3_zsoZ9aUyWchq2Z2vk8fmHALc6MpET7fWKc9cbKxo7yDwjYaFHb20XVv7jGlDKBvQflLzM5uQjeS9iulMPICxhtKhtJnX3g9jSuY6k086pV8kzamrS8g9rOEzhdSb7j9n2jJowO11htmREw1WZVRuIyaplWUUmmFXiW49Za36mjg-asYlsp32iyTw',

@@ -419,26 +419,46 @@ export const AiAssistantView: React.FC = () => {
                                   <span>Tap card to flip</span>
                                 </div>
 
-                                <div
-                                  onClick={() => setFlashcardFlipped((prev) => ({ ...prev, [msg.id]: !isFlipped }))}
-                                  className="min-h-[110px] p-5 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 flex flex-col justify-center items-center text-center cursor-pointer shadow-2xs hover:shadow-xs transition-all"
-                                >
-                                  <span className="text-[10px] uppercase font-bold text-blue-600 tracking-wider mb-1 font-mono">
-                                    {isFlipped ? 'Answer & Details' : 'Question / Concept'}
-                                  </span>
-                                  <p className="text-xs md:text-sm font-bold text-slate-900 leading-snug">
-                                    {isFlipped ? curCard.back : curCard.front}
-                                  </p>
+                                {/* 3D Flip Flashcard */}
+                                <div className="perspective-1000 w-full select-none my-1">
+                                  <div
+                                    onClick={() => setFlashcardFlipped((prev) => ({ ...prev, [msg.id]: !isFlipped }))}
+                                    className={`min-h-[120px] relative preserve-3d transition-transform duration-500 ease-out cursor-pointer card-3d-lift ${
+                                      isFlipped ? 'rotate-y-180' : ''
+                                    }`}
+                                  >
+                                    {/* Front Side */}
+                                    <div className="w-full h-full min-h-[120px] p-5 rounded-2xl bg-gradient-to-br from-blue-50 via-white to-indigo-50 border border-blue-200 shadow-3d-sm backface-hidden absolute inset-0 flex flex-col justify-center items-center text-center">
+                                      <span className="text-[10px] uppercase font-bold text-blue-600 tracking-wider mb-1 font-mono flex items-center gap-1">
+                                        <span className="material-symbols-outlined text-[13px]">help</span>
+                                        Question / Concept (Tap to Flip ↻)
+                                      </span>
+                                      <p className="text-xs md:text-sm font-bold text-slate-900 leading-snug">
+                                        {curCard.front}
+                                      </p>
+                                    </div>
+
+                                    {/* Back Side */}
+                                    <div className="w-full h-full min-h-[120px] p-5 rounded-2xl bg-gradient-to-br from-indigo-900 via-blue-900 to-slate-900 text-white border border-indigo-700 shadow-3d-glow-blue backface-hidden rotate-y-180 flex flex-col justify-center items-center text-center">
+                                      <span className="text-[10px] uppercase font-bold text-amber-300 tracking-wider mb-1 font-mono flex items-center gap-1">
+                                        <span className="material-symbols-outlined text-[13px]">verified</span>
+                                        Answer & Key Takeaway
+                                      </span>
+                                      <p className="text-xs md:text-sm font-semibold text-blue-100 leading-snug">
+                                        {curCard.back}
+                                      </p>
+                                    </div>
+                                  </div>
                                 </div>
 
-                                <div className="flex items-center justify-between gap-2 pt-1">
+                                <div className="flex items-center justify-between gap-2 pt-2">
                                   <button
                                     disabled={curIdx === 0}
                                     onClick={() => {
                                       setFlashcardIndices((prev) => ({ ...prev, [msg.id]: curIdx - 1 }));
                                       setFlashcardFlipped((prev) => ({ ...prev, [msg.id]: false }));
                                     }}
-                                    className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 disabled:opacity-40 text-xs font-bold text-slate-700"
+                                    className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 disabled:opacity-40 text-xs font-bold text-slate-700 btn-3d-press cursor-pointer"
                                   >
                                     Previous
                                   </button>
@@ -448,9 +468,9 @@ export const AiAssistantView: React.FC = () => {
                                       setFlashcardIndices((prev) => ({ ...prev, [msg.id]: curIdx + 1 }));
                                       setFlashcardFlipped((prev) => ({ ...prev, [msg.id]: false }));
                                     }}
-                                    className="px-4 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-xs font-bold text-white shadow-xs"
+                                    className="px-4 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-xs font-bold text-white shadow-3d-sm btn-3d-press cursor-pointer"
                                   >
-                                    Next Card
+                                    Next Card →
                                   </button>
                                 </div>
                               </div>

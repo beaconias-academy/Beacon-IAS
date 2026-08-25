@@ -60,24 +60,27 @@ export const StudentPassportView: React.FC<StudentPassportViewProps> = ({
             </span>
           </div>
 
-          {/* 3D Flip Interactive Passport ID Card */}
-          <div
-            onClick={() => setIsFlipped(!isFlipped)}
-            className="w-full min-h-[260px] rounded-3xl p-6 text-white shadow-xl relative overflow-hidden cursor-pointer transition-all duration-300 active:scale-[0.985] select-none bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-950 border border-slate-700/80"
-          >
-            {/* Subtle holographic glow */}
-            <div className="absolute -top-10 -right-10 w-48 h-48 bg-blue-500/20 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute -bottom-10 -left-10 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+          {/* 3D Flip Interactive Passport ID Card with real 3D rotation */}
+          <div className="perspective-1200 w-full select-none">
+            <div
+              onClick={() => setIsFlipped(!isFlipped)}
+              className={`w-full min-h-[270px] relative preserve-3d transition-transform duration-700 ease-out cursor-pointer card-3d-lift ${
+                isFlipped ? 'rotate-y-180' : ''
+              }`}
+            >
+              {/* Front Face of 3D Passport Card */}
+              <div className="w-full h-full min-h-[270px] rounded-3xl p-6 text-white backface-hidden absolute inset-0 flex flex-col justify-between overflow-hidden bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 border border-slate-700/80 shadow-3d-glow-blue">
+                {/* 3D Holographic ambient shine */}
+                <div className="absolute inset-0 holographic-sheen pointer-events-none" />
+                <div className="absolute -top-12 -right-12 w-48 h-48 bg-blue-500/25 rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute -bottom-12 -left-12 w-48 h-48 bg-amber-500/15 rounded-full blur-3xl pointer-events-none" />
 
-            {!isFlipped ? (
-              /* Front of Passport Card */
-              <div className="flex flex-col justify-between h-full min-h-[220px] relative z-10 space-y-4">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between relative z-10">
                   <div className="flex items-center gap-2.5">
                     <img
-                      src="/beacon-logo.png"
+                      src="/logo.png"
                       alt="Beacon IAS"
-                      className="w-8 h-8 rounded-xl object-cover ring-1 ring-amber-400 shadow-sm"
+                      className="w-8 h-8 rounded-xl object-cover ring-2 ring-amber-400/80 shadow-md animate-float-3d"
                     />
                     <div>
                       <span className="font-extrabold tracking-wider text-xs block leading-tight text-white font-sans">
@@ -88,54 +91,67 @@ export const StudentPassportView: React.FC<StudentPassportViewProps> = ({
                       </span>
                     </div>
                   </div>
-                  <span className="text-[10px] bg-white/15 px-2.5 py-1 rounded-full font-mono font-bold text-blue-200 border border-white/10">
-                    VERIFIED
-                  </span>
+                  <div className="flex items-center gap-1.5 bg-white/15 px-3 py-1 rounded-full font-mono font-bold text-xs text-blue-200 border border-white/15 shadow-inner">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    <span>VERIFIED</span>
+                  </div>
                 </div>
 
-                <div className="flex items-center gap-4 my-2">
-                  <img
-                    src={profile.avatarUrl}
-                    alt={profile.name}
-                    className="w-18 h-18 rounded-2xl object-cover ring-2 ring-white/40 shadow-md shrink-0"
-                  />
+                <div className="flex items-center gap-4 my-2 relative z-10">
+                  <div className="relative">
+                    <img
+                      src={profile.avatarUrl}
+                      alt={profile.name}
+                      className="w-18 h-18 rounded-2xl object-cover ring-2 ring-white/50 shadow-xl shrink-0"
+                    />
+                    <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-md">
+                      <span className="material-symbols-outlined text-[12px]" style={{ fontVariationSettings: "'FILL' 1" }}>
+                        verified
+                      </span>
+                    </div>
+                  </div>
                   <div className="min-w-0 flex-1">
-                    <h3 className="font-extrabold text-lg text-white truncate font-sans">{profile.name}</h3>
+                    <h3 className="font-extrabold text-lg text-white truncate font-sans tracking-wide">{profile.name}</h3>
                     <p className="font-mono text-xs text-blue-200">UID: {profile.idNumber}</p>
                     <p className="text-xs text-slate-300 mt-0.5 truncate">{profile.targetExam}</p>
-                    <div className="inline-block mt-1.5 px-2.5 py-0.5 rounded-md bg-white/20 text-[10px] font-bold text-amber-300">
+                    <div className="inline-block mt-1.5 px-2.5 py-0.5 rounded-md bg-white/20 text-[10px] font-bold text-amber-300 shadow-2xs">
                       Archetype: {archetype.title}
                     </div>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between text-xs text-slate-300 border-t border-white/15 pt-3 font-mono">
+                <div className="flex items-center justify-between text-xs text-slate-300 border-t border-white/15 pt-3 font-mono relative z-10">
                   <span className="truncate max-w-[220px]">{profile.institution}</span>
-                  <span className="text-emerald-400 font-bold">● ACTIVE ASPIRANT</span>
+                  <span className="text-emerald-400 font-bold flex items-center gap-1">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                    ACTIVE ASPIRANT
+                  </span>
                 </div>
               </div>
-            ) : (
-              /* Back of Passport Card (QR & Cryptographic Verification) */
-              <div className="flex flex-col justify-between h-full min-h-[220px] relative z-10 text-center animate-in zoom-in-95 space-y-3">
-                <div className="flex items-center justify-between text-[10px] uppercase font-bold text-slate-300 font-mono">
+
+              {/* Back Face of 3D Passport Card */}
+              <div className="w-full h-full min-h-[270px] rounded-3xl p-6 text-white backface-hidden rotate-y-180 flex flex-col justify-between overflow-hidden bg-gradient-to-br from-indigo-950 via-slate-900 to-blue-950 border border-slate-700/80 shadow-3d-glow-blue">
+                {/* 3D Holographic ambient shine */}
+                <div className="absolute inset-0 holographic-sheen pointer-events-none" />
+                <div className="flex items-center justify-between text-[10px] uppercase font-bold text-slate-300 font-mono relative z-10">
                   <span>CRYPTOGRAPHIC VERIFICATION</span>
-                  <span className="text-amber-300">Tap to Flip ↻</span>
+                  <span className="text-amber-300 bg-black/40 px-2 py-0.5 rounded-full">Tap to Flip ↻</span>
                 </div>
 
-                <div className="my-auto flex flex-col items-center">
-                  <div className="w-24 h-24 bg-white p-2 rounded-2xl shadow-lg flex items-center justify-center">
+                <div className="my-auto flex flex-col items-center relative z-10">
+                  <div className="w-24 h-24 bg-white p-2 rounded-2xl shadow-2xl flex items-center justify-center transform hover:scale-105 transition-transform">
                     <span className="material-symbols-outlined text-slate-900 text-6xl">qr_code_2</span>
                   </div>
-                  <span className="font-mono text-xs text-blue-200 mt-2">
-                    HASH: 8F9A-BC2024-UPSC-VERIFIED
+                  <span className="font-mono text-xs text-amber-300 mt-2 font-bold tracking-wider">
+                    HASH: 8F9A-BC2026-UPSC-VERIFIED
                   </span>
                 </div>
 
-                <div className="text-[10px] text-slate-400 font-mono border-t border-white/15 pt-2">
+                <div className="text-[10px] text-slate-300 font-mono border-t border-white/15 pt-2 text-center relative z-10">
                   Official Credential of Beacon IAS Academy • Bengaluru
                 </div>
               </div>
-            )}
+            </div>
           </div>
 
           {/* Action Buttons */}

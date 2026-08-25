@@ -54,16 +54,16 @@ export const StudentDashboardView: React.FC<StudentDashboardViewProps> = ({
       {/* Top Section: Aspirant Hero Banner & Readiness Score (2 Column on Tablet & Laptop screens) */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5 lg:gap-6 items-stretch">
         {/* Aspirant Profile Hero Banner (7 cols on md/lg) */}
-        <section className="md:col-span-7 lg:col-span-7 bg-white rounded-3xl p-5 md:p-6 border border-slate-200 shadow-sm relative overflow-hidden flex flex-col justify-between">
+        <section className="md:col-span-7 lg:col-span-7 bg-white rounded-3xl p-5 md:p-6 border border-slate-200/90 shadow-3d-sm card-3d-lift relative overflow-hidden flex flex-col justify-between">
           <div className="flex items-start justify-between gap-3">
             <div className="flex items-center gap-4 min-w-0">
               <div className="relative w-16 h-16 md:w-20 md:h-20 shrink-0">
                 <img
                   alt={profile.name}
-                  className="w-full h-full object-cover rounded-2xl md:rounded-3xl shadow-sm ring-4 ring-blue-500/20"
+                  className="w-full h-full object-cover rounded-2xl md:rounded-3xl shadow-md ring-4 ring-blue-500/20"
                   src={profile.avatarUrl}
                 />
-                <div className="absolute -bottom-1 -right-1 bg-blue-600 text-white w-6 h-6 rounded-full flex items-center justify-center shadow-md">
+                <div className="absolute -bottom-1 -right-1 bg-blue-600 text-white w-6 h-6 rounded-full flex items-center justify-center shadow-md animate-pulse-ring">
                   <span
                     className="material-symbols-outlined text-[14px]"
                     style={{ fontVariationSettings: "'FILL' 1" }}
@@ -75,7 +75,7 @@ export const StudentDashboardView: React.FC<StudentDashboardViewProps> = ({
 
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-                  <span className="text-[10px] md:text-xs font-extrabold text-blue-700 uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-blue-50 border border-blue-200">
+                  <span className="text-[10px] md:text-xs font-extrabold text-blue-700 uppercase tracking-wider px-2.5 py-0.5 rounded-md bg-blue-50 border border-blue-200/80 shadow-2xs">
                     BEACON ASPIRANT
                   </span>
                   <span className="text-xs font-mono text-slate-400 font-semibold truncate">
@@ -100,8 +100,8 @@ export const StudentDashboardView: React.FC<StudentDashboardViewProps> = ({
             </div>
 
             <div className="flex flex-col items-end shrink-0">
-              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs md:text-sm font-bold shadow-2xs">
-                <span>🔥</span>
+              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs md:text-sm font-bold shadow-2xs animate-float-3d">
+                <span className="text-sm">🔥</span>
                 <span>18d Streak</span>
               </div>
               <span className="text-[11px] text-slate-400 font-medium mt-1.5 font-mono">
@@ -112,17 +112,17 @@ export const StudentDashboardView: React.FC<StudentDashboardViewProps> = ({
 
           <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between gap-3 flex-wrap">
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
               <span className="text-xs font-medium text-slate-600">
                 Syllabus Tracker: <strong className="text-slate-900 font-bold">64% GS Papers Covered</strong>
               </span>
             </div>
             <button
               onClick={() => onNavigate('passport')}
-              className="text-xs font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1 group"
+              className="text-xs font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1 group btn-3d-press cursor-pointer"
             >
               Verified Passport
-              <span className="material-symbols-outlined text-[16px] group-hover:translate-x-0.5 transition-transform">
+              <span className="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">
                 arrow_forward
               </span>
             </button>
@@ -131,13 +131,13 @@ export const StudentDashboardView: React.FC<StudentDashboardViewProps> = ({
 
         {/* Career Readiness Score Card (5 cols on md/lg) */}
         <section
-          className="md:col-span-5 lg:col-span-5 rounded-3xl p-5 md:p-6 text-white shadow-md relative overflow-hidden flex flex-col justify-between"
+          className="md:col-span-5 lg:col-span-5 rounded-3xl p-5 md:p-6 text-white shadow-3d-glow-blue card-3d-lift relative overflow-hidden flex flex-col justify-between"
           style={{
             backgroundColor: '#1d4ed8',
             backgroundImage: 'linear-gradient(135deg, #1e40af 0%, #2563eb 50%, #1e3a8a 100%)',
           }}
         >
-          <div className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full blur-2xl pointer-events-none" />
+          <div className="absolute top-0 right-0 w-48 h-48 bg-white/15 rounded-full blur-2xl pointer-events-none animate-float-3d" />
 
           <div className="relative z-10">
             <div className="flex items-center justify-between mb-3">
@@ -145,7 +145,7 @@ export const StudentDashboardView: React.FC<StudentDashboardViewProps> = ({
                 <span className="material-symbols-outlined text-[18px] text-amber-300">analytics</span>
                 AI Trajectory Forecast
               </span>
-              <span className="text-xs font-bold text-amber-300 bg-black/30 backdrop-blur-xs px-3 py-1 rounded-full border border-amber-300/30">
+              <span className="text-xs font-bold text-amber-300 bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-amber-300/30 shadow-inner">
                 Target: 2026
               </span>
             </div>
@@ -164,14 +164,14 @@ export const StudentDashboardView: React.FC<StudentDashboardViewProps> = ({
                 <div className="flex items-center gap-2 mt-4">
                   <button
                     onClick={() => onNavigate('assessment')}
-                    className="bg-white hover:bg-blue-50 text-blue-900 text-xs font-bold px-3.5 py-2 rounded-xl shadow-xs active:scale-95 transition-all flex items-center gap-1.5"
+                    className="bg-white hover:bg-blue-50 text-blue-900 text-xs font-bold px-3.5 py-2 rounded-xl shadow-md btn-3d-press transition-all flex items-center gap-1.5 cursor-pointer"
                   >
                     <span className="material-symbols-outlined text-[16px] text-blue-700">psychology</span>
                     Assessment
                   </button>
                   <button
                     onClick={() => onNavigate('career-path')}
-                    className="bg-blue-950/60 hover:bg-blue-950 text-white text-xs font-semibold px-3 py-2 rounded-xl border border-white/20 active:scale-95 transition-all flex items-center gap-1"
+                    className="bg-blue-950/60 hover:bg-blue-950 text-white text-xs font-semibold px-3 py-2 rounded-xl border border-white/20 btn-3d-press transition-all flex items-center gap-1 cursor-pointer"
                   >
                     Roadmap
                     <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
@@ -181,7 +181,7 @@ export const StudentDashboardView: React.FC<StudentDashboardViewProps> = ({
 
               {/* Circular Gauge */}
               <div className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-28 md:h-28 lg:w-32 lg:h-32 shrink-0 flex items-center justify-center">
-                <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                <svg className="w-full h-full transform -rotate-90 filter drop-shadow-md" viewBox="0 0 100 100">
                   <circle
                     className="text-white/20"
                     cx="50"
@@ -205,7 +205,7 @@ export const StudentDashboardView: React.FC<StudentDashboardViewProps> = ({
                   />
                 </svg>
                 <div className="absolute flex flex-col items-center justify-center text-center">
-                  <span className="font-extrabold text-xl sm:text-2xl md:text-2xl lg:text-3xl leading-none text-white">{readinessScore}</span>
+                  <span className="font-extrabold text-xl sm:text-2xl md:text-2xl lg:text-3xl leading-none text-white font-mono tracking-tight">{readinessScore}</span>
                   <span className="text-[9px] sm:text-[10px] text-blue-200 font-bold uppercase tracking-wider mt-0.5">/ 100</span>
                 </div>
               </div>
@@ -223,13 +223,13 @@ export const StudentDashboardView: React.FC<StudentDashboardViewProps> = ({
           <button
             id="quick-action-my-career"
             onClick={() => onNavigate('career-path')}
-            className="bg-white rounded-2xl md:rounded-3xl p-4 border border-slate-200 shadow-2xs hover:border-blue-500 hover:shadow-md active:scale-95 transition-all flex flex-col items-center gap-2 text-center group cursor-pointer"
+            className="bg-white rounded-2xl md:rounded-3xl p-4 border border-slate-200/90 shadow-3d-sm card-3d-lift flex flex-col items-center gap-2 text-center group cursor-pointer"
           >
-            <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-700 flex items-center justify-center shadow-2xs group-hover:bg-blue-600 group-hover:text-white transition-colors">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 text-blue-700 flex items-center justify-center shadow-2xs group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-blue-600 group-hover:to-indigo-700 group-hover:text-white transition-all duration-300">
               <span className="material-symbols-outlined text-[24px]">map</span>
             </div>
             <div>
-              <span className="text-sm font-bold text-slate-800 leading-tight block">
+              <span className="text-sm font-bold text-slate-800 leading-tight block group-hover:text-blue-600 transition-colors">
                 Career Roadmap
               </span>
               <span className="text-[11px] text-slate-400 font-medium">
@@ -241,17 +241,17 @@ export const StudentDashboardView: React.FC<StudentDashboardViewProps> = ({
           <button
             id="quick-action-ai-assistant"
             onClick={() => onNavigate('ai')}
-            className="bg-white rounded-2xl md:rounded-3xl p-4 border border-slate-200 shadow-2xs hover:border-blue-500 hover:shadow-md active:scale-95 transition-all flex flex-col items-center gap-2 text-center group cursor-pointer"
+            className="bg-white rounded-2xl md:rounded-3xl p-4 border border-slate-200/90 shadow-3d-sm card-3d-lift flex flex-col items-center gap-2 text-center group cursor-pointer"
           >
-            <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-700 flex items-center justify-center shadow-2xs group-hover:bg-blue-600 group-hover:text-white transition-colors p-2">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 text-blue-700 flex items-center justify-center shadow-2xs group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-blue-600 group-hover:to-indigo-700 group-hover:text-white transition-all duration-300 p-2">
               <img
                 src="/beacon-ai.svg"
                 alt="Beacon AI"
-                className="w-full h-full object-contain"
+                className="w-full h-full object-contain group-hover:brightness-200 transition-all"
               />
             </div>
             <div>
-              <span className="text-sm font-bold text-slate-800 leading-tight block">
+              <span className="text-sm font-bold text-slate-800 leading-tight block group-hover:text-blue-600 transition-colors">
                 Beacon AI Mentor
               </span>
               <span className="text-[11px] text-slate-400 font-medium">
@@ -263,13 +263,13 @@ export const StudentDashboardView: React.FC<StudentDashboardViewProps> = ({
           <button
             id="quick-action-courses"
             onClick={() => onNavigate('courses')}
-            className="bg-white rounded-2xl md:rounded-3xl p-4 border border-slate-200 shadow-2xs hover:border-emerald-500 hover:shadow-md active:scale-95 transition-all flex flex-col items-center gap-2 text-center group cursor-pointer"
+            className="bg-white rounded-2xl md:rounded-3xl p-4 border border-slate-200/90 shadow-3d-sm card-3d-lift flex flex-col items-center gap-2 text-center group cursor-pointer"
           >
-            <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center shadow-2xs group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-50 text-emerald-700 flex items-center justify-center shadow-2xs group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-emerald-600 group-hover:to-teal-700 group-hover:text-white transition-all duration-300">
               <span className="material-symbols-outlined text-[24px]">play_lesson</span>
             </div>
             <div>
-              <span className="text-sm font-bold text-slate-800 leading-tight block">
+              <span className="text-sm font-bold text-slate-800 leading-tight block group-hover:text-emerald-600 transition-colors">
                 Lectures & Notes
               </span>
               <span className="text-[11px] text-slate-400 font-medium">
@@ -281,13 +281,13 @@ export const StudentDashboardView: React.FC<StudentDashboardViewProps> = ({
           <button
             id="quick-action-tests"
             onClick={() => onNavigate('performance-tests')}
-            className="bg-white rounded-2xl md:rounded-3xl p-4 border border-slate-200 shadow-2xs hover:border-amber-500 hover:shadow-md active:scale-95 transition-all flex flex-col items-center gap-2 text-center group cursor-pointer"
+            className="bg-white rounded-2xl md:rounded-3xl p-4 border border-slate-200/90 shadow-3d-sm card-3d-lift flex flex-col items-center gap-2 text-center group cursor-pointer"
           >
-            <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center shadow-2xs group-hover:bg-amber-600 group-hover:text-white transition-colors">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-50 to-orange-50 text-amber-700 flex items-center justify-center shadow-2xs group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-amber-600 group-hover:to-orange-700 group-hover:text-white transition-all duration-300">
               <span className="material-symbols-outlined text-[24px]">assignment</span>
             </div>
             <div>
-              <span className="text-sm font-bold text-slate-800 leading-tight block">
+              <span className="text-sm font-bold text-slate-800 leading-tight block group-hover:text-amber-600 transition-colors">
                 Mock Tests
               </span>
               <span className="text-[11px] text-slate-400 font-medium">
@@ -321,70 +321,70 @@ export const StudentDashboardView: React.FC<StudentDashboardViewProps> = ({
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
               {/* Academic */}
-              <div className="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs flex flex-col justify-between">
+              <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-3d-sm card-3d-lift flex flex-col justify-between group cursor-pointer hover:border-blue-400">
                 <div className="flex items-center justify-between text-slate-600">
-                  <div className="w-8 h-8 rounded-xl bg-blue-50 flex items-center justify-center text-blue-700">
+                  <div className="w-8 h-8 rounded-xl bg-blue-50 flex items-center justify-center text-blue-700 shadow-2xs group-hover:scale-110 transition-transform">
                     <span className="material-symbols-outlined text-[18px]">menu_book</span>
                   </div>
                   <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono">Academic</span>
                 </div>
                 <div className="flex items-baseline justify-between mt-3">
-                  <span className="text-2xl font-extrabold text-slate-900">{indices.academic}</span>
+                  <span className="text-2xl font-extrabold text-slate-900 font-mono">{indices.academic}</span>
                   <span className="text-xs font-mono text-slate-400">/ 100</span>
                 </div>
-                <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden mt-2">
-                  <div className="bg-blue-600 h-full rounded-full" style={{ width: `${indices.academic}%` }} />
+                <div className="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden mt-2 p-0.5 shadow-inner">
+                  <div className="bg-gradient-to-r from-blue-600 to-indigo-600 h-full rounded-full transition-all duration-1000" style={{ width: `${indices.academic}%` }} />
                 </div>
               </div>
 
               {/* Competitive */}
-              <div className="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs flex flex-col justify-between">
+              <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-3d-sm card-3d-lift flex flex-col justify-between group cursor-pointer hover:border-indigo-400">
                 <div className="flex items-center justify-between text-slate-600">
-                  <div className="w-8 h-8 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-700">
+                  <div className="w-8 h-8 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-700 shadow-2xs group-hover:scale-110 transition-transform">
                     <span className="material-symbols-outlined text-[18px]">emoji_events</span>
                   </div>
                   <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono">Competitive</span>
                 </div>
                 <div className="flex items-baseline justify-between mt-3">
-                  <span className="text-2xl font-extrabold text-slate-900">{indices.competitive}</span>
+                  <span className="text-2xl font-extrabold text-slate-900 font-mono">{indices.competitive}</span>
                   <span className="text-xs font-mono text-slate-400">/ 100</span>
                 </div>
-                <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden mt-2">
-                  <div className="bg-indigo-600 h-full rounded-full" style={{ width: `${indices.competitive}%` }} />
+                <div className="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden mt-2 p-0.5 shadow-inner">
+                  <div className="bg-gradient-to-r from-indigo-600 to-purple-600 h-full rounded-full transition-all duration-1000" style={{ width: `${indices.competitive}%` }} />
                 </div>
               </div>
 
               {/* Competency */}
-              <div className="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs flex flex-col justify-between">
+              <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-3d-sm card-3d-lift flex flex-col justify-between group cursor-pointer hover:border-purple-400">
                 <div className="flex items-center justify-between text-slate-600">
-                  <div className="w-8 h-8 rounded-xl bg-purple-50 flex items-center justify-center text-purple-700">
+                  <div className="w-8 h-8 rounded-xl bg-purple-50 flex items-center justify-center text-purple-700 shadow-2xs group-hover:scale-110 transition-transform">
                     <span className="material-symbols-outlined text-[18px]">psychology</span>
                   </div>
                   <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono">Competency</span>
                 </div>
                 <div className="flex items-baseline justify-between mt-3">
-                  <span className="text-2xl font-extrabold text-slate-900">{indices.competency}</span>
+                  <span className="text-2xl font-extrabold text-slate-900 font-mono">{indices.competency}</span>
                   <span className="text-xs font-mono text-slate-400">/ 100</span>
                 </div>
-                <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden mt-2">
-                  <div className="bg-purple-600 h-full rounded-full" style={{ width: `${indices.competency}%` }} />
+                <div className="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden mt-2 p-0.5 shadow-inner">
+                  <div className="bg-gradient-to-r from-purple-600 to-pink-600 h-full rounded-full transition-all duration-1000" style={{ width: `${indices.competency}%` }} />
                 </div>
               </div>
 
               {/* Consistency */}
-              <div className="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs flex flex-col justify-between">
+              <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-3d-sm card-3d-lift flex flex-col justify-between group cursor-pointer hover:border-emerald-400">
                 <div className="flex items-center justify-between text-slate-600">
-                  <div className="w-8 h-8 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-700">
+                  <div className="w-8 h-8 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-700 shadow-2xs group-hover:scale-110 transition-transform">
                     <span className="material-symbols-outlined text-[18px]">trending_up</span>
                   </div>
                   <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono">Consistency</span>
                 </div>
                 <div className="flex items-baseline justify-between mt-3">
-                  <span className="text-2xl font-extrabold text-slate-900">{indices.consistency}</span>
+                  <span className="text-2xl font-extrabold text-slate-900 font-mono">{indices.consistency}</span>
                   <span className="text-xs font-mono text-emerald-600 font-bold">Top 5%</span>
                 </div>
-                <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden mt-2">
-                  <div className="bg-emerald-600 h-full rounded-full" style={{ width: `${indices.consistency}%` }} />
+                <div className="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden mt-2 p-0.5 shadow-inner">
+                  <div className="bg-gradient-to-r from-emerald-600 to-teal-600 h-full rounded-full transition-all duration-1000" style={{ width: `${indices.consistency}%` }} />
                 </div>
               </div>
 

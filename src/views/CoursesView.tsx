@@ -83,12 +83,12 @@ export const CoursesView: React.FC<CoursesViewProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-start">
         {/* Main Video + Tabs Column (12 cols on mobile/iPad portrait, 8 cols on iPad landscape/laptop) */}
         <div className="lg:col-span-8 space-y-4">
-          {/* Video Player Container */}
-          <div className="w-full aspect-video bg-slate-950 rounded-2xl md:rounded-3xl relative overflow-hidden shadow-lg group">
+          {/* Video Player Container with 3D Depth & Glow */}
+          <div className="w-full aspect-video bg-slate-950 rounded-2xl md:rounded-3xl relative overflow-hidden shadow-3d-lg border border-slate-800/80 group">
             {/* Beacon IAS Video Watermark (Top Left) */}
-            <div className="absolute top-3.5 left-3.5 flex items-center gap-1.5 px-3 py-1 bg-black/75 backdrop-blur-md rounded-full border border-amber-400/40 z-20 shadow-md">
-              <img src="/beacon-logo.png" alt="Beacon IAS" className="w-4 h-4 rounded-full object-cover" />
-              <span className="text-[9px] font-extrabold text-amber-400 tracking-widest">
+            <div className="absolute top-3.5 left-3.5 flex items-center gap-1.5 px-3 py-1.5 bg-black/80 backdrop-blur-md rounded-full border border-amber-400/50 z-20 shadow-md animate-float-3d">
+              <img src="/logo.png" alt="Beacon IAS" className="w-4 h-4 rounded-full object-cover ring-1 ring-amber-400" />
+              <span className="text-[9px] font-extrabold text-amber-400 tracking-widest font-sans">
                 Beacon IAS
               </span>
             </div>
@@ -97,13 +97,13 @@ export const CoursesView: React.FC<CoursesViewProps> = ({
             <div className="absolute top-3.5 right-3.5 flex items-center gap-2 z-20">
               <button
                 onClick={handleSpeedToggle}
-                className="px-2.5 py-1 rounded-xl bg-black/75 hover:bg-black/90 text-white text-xs font-mono font-bold border border-white/20 active:scale-95 transition-all backdrop-blur-md"
+                className="px-3 py-1 rounded-xl bg-black/80 hover:bg-black/95 text-white text-xs font-mono font-bold border border-white/25 btn-3d-press backdrop-blur-md shadow-md cursor-pointer"
               >
                 {playbackSpeed}x
               </button>
               <button
                 onClick={handleBookmarkToggle}
-                className="w-8 h-8 rounded-xl bg-black/75 hover:bg-black/90 text-white flex items-center justify-center border border-white/20 active:scale-95 transition-all backdrop-blur-md"
+                className="w-8 h-8 rounded-xl bg-black/80 hover:bg-black/95 text-white flex items-center justify-center border border-white/25 btn-3d-press backdrop-blur-md shadow-md cursor-pointer"
                 title="Bookmark"
               >
                 <span
@@ -127,7 +127,7 @@ export const CoursesView: React.FC<CoursesViewProps> = ({
               <div className="absolute inset-0 flex items-center justify-center">
                 <button
                   onClick={() => setIsPlaying(!isPlaying)}
-                  className="w-16 h-16 rounded-full bg-blue-600/90 hover:bg-blue-600 text-white flex items-center justify-center shadow-2xl active:scale-90 transition-all border border-white/30 backdrop-blur-xs cursor-pointer"
+                  className="w-16 h-16 rounded-full bg-blue-600/95 hover:bg-blue-600 text-white flex items-center justify-center shadow-3d-glow-blue btn-3d-press border-2 border-white/40 backdrop-blur-xs cursor-pointer group-hover:scale-105"
                 >
                   <span
                     className="material-symbols-outlined text-4xl ml-0.5"

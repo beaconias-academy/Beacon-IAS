@@ -180,28 +180,28 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <button
             id="sidebar-nav-ai"
             onClick={() => onNavigate('ai')}
-            className={`w-full rounded-2xl flex items-center transition-all duration-200 group border cursor-pointer ${
+            className={`w-full rounded-2xl flex items-center transition-all duration-200 group border cursor-pointer card-3d-lift ${
               isCollapsed ? 'p-2 justify-center' : 'p-3 justify-between'
             } ${
               currentScreen === 'ai'
-                ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-blue-400/30 shadow-lg shadow-blue-600/20'
-                : 'bg-slate-800/70 hover:bg-slate-800 text-slate-100 border-slate-700/60 hover:border-blue-500/50'
+                ? 'bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white border-blue-400/40 shadow-3d-glow-blue'
+                : 'bg-slate-800/80 hover:bg-slate-800 text-slate-100 border-slate-700/60 hover:border-blue-500/50 shadow-3d-sm'
             }`}
             title="Beacon AI Mentor — Instant UPSC Queries"
           >
             <div className={`flex items-center gap-3 ${isCollapsed ? 'justify-center' : ''}`}>
-              <div className="w-8 h-8 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center p-1 group-hover:scale-110 transition-transform shrink-0">
+              <div className="w-8 h-8 rounded-xl bg-blue-500/30 text-blue-400 flex items-center justify-center p-1 group-hover:scale-110 transition-transform shrink-0 shadow-inner">
                 <img
                   src="/beacon-ai.svg"
                   alt="Beacon AI"
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain brightness-125"
                 />
               </div>
               {!isCollapsed && (
                 <div className="text-left animate-in fade-in duration-200">
                   <div className="text-xs font-bold leading-tight flex items-center gap-1.5">
                     Beacon AI Mentor
-                    <span className="px-1.5 py-0.2 rounded bg-amber-400/20 text-amber-300 text-[9px] font-extrabold uppercase">
+                    <span className="px-1.5 py-0.2 rounded bg-amber-400/25 text-amber-300 text-[9px] font-extrabold uppercase shadow-2xs">
                       PRO
                     </span>
                   </div>
@@ -212,7 +212,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               )}
             </div>
             {!isCollapsed && (
-              <span className="material-symbols-outlined text-[18px] text-slate-400 group-hover:translate-x-0.5 transition-transform">
+              <span className="material-symbols-outlined text-[18px] text-slate-400 group-hover:translate-x-1 transition-transform">
                 chevron_right
               </span>
             )}
