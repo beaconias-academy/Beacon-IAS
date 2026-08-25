@@ -8,6 +8,7 @@ interface CareerPathViewProps {
 export const CareerPathView: React.FC<CareerPathViewProps> = ({ onNavigate }) => {
   const [expandedNodes, setExpandedNodes] = useState<{ [id: string]: boolean }>({
     'node-2': true,
+    'node-3': true,
   });
 
   const toggleNode = (id: string) => {
@@ -88,29 +89,36 @@ export const CareerPathView: React.FC<CareerPathViewProps> = ({ onNavigate }) =>
   ];
 
   return (
-    <div className="flex flex-col w-full pb-24 p-3.5 sm:p-4 space-y-4 animate-in fade-in duration-200">
+    <div className="w-full max-w-5xl mx-auto pb-24 md:pb-12 p-3 sm:p-4 md:p-6 lg:p-8 space-y-6 animate-in fade-in duration-200">
       {/* Overview Banner */}
       <section
-        className="rounded-2xl p-4 text-white shadow-md relative overflow-hidden"
+        className="rounded-3xl p-6 md:p-8 text-white shadow-md relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-4"
         style={{
           backgroundColor: '#1d4ed8',
           backgroundImage: 'linear-gradient(135deg, #1e40af 0%, #2563eb 50%, #1e3a8a 100%)',
         }}
       >
-        <div className="absolute top-0 right-0 w-36 h-36 bg-white/10 rounded-full blur-2xl pointer-events-none" />
-        <div className="relative z-10">
-          <span className="text-[10px] font-bold text-amber-300 uppercase tracking-widest block mb-1">
+        <div className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full blur-2xl pointer-events-none" />
+        <div className="relative z-10 max-w-2xl">
+          <span className="text-xs font-bold text-amber-300 uppercase tracking-widest block mb-1 font-mono">
             CAREER TRAJECTORY ROADMAP
           </span>
-          <h2 className="text-lg font-extrabold leading-tight">UPSC Civil Services 2026</h2>
-          <p className="text-xs text-blue-100 mt-1 leading-relaxed">
-            Personalized milestone blueprint synchronized with your degree and current Beacon Index competencies.
+          <h1 className="text-2xl md:text-3xl font-extrabold leading-tight font-sans">UPSC Civil Services 2026 Roadmap</h1>
+          <p className="text-xs md:text-sm text-blue-100 mt-2 leading-relaxed">
+            Personalized 5-phase milestone blueprint synchronized with your degree and current Beacon Competency Index.
           </p>
         </div>
+
+        <button
+          onClick={() => onNavigate('assessment')}
+          className="relative z-10 px-5 py-2.5 bg-white hover:bg-blue-50 text-blue-900 text-xs md:text-sm font-bold rounded-xl shadow-xs active:scale-95 transition-all cursor-pointer whitespace-nowrap"
+        >
+          Retake Assessment
+        </button>
       </section>
 
       {/* Responsive Connected Timeline */}
-      <section className="relative space-y-4">
+      <section className="relative space-y-5">
         {milestones.map((m, idx) => {
           const isExpanded = !!expandedNodes[m.id];
           const isCompleted = m.status === 'completed';
@@ -118,11 +126,11 @@ export const CareerPathView: React.FC<CareerPathViewProps> = ({ onNavigate }) =>
           const isLast = idx === milestones.length - 1;
 
           return (
-            <div key={m.id} className="relative flex items-start gap-3 group">
+            <div key={m.id} className="relative flex items-start gap-4 group">
               {/* Connecting vertical line */}
               {!isLast && (
                 <div
-                  className={`absolute left-[18px] top-10 bottom-[-16px] w-[2px] z-0 transition-colors ${
+                  className={`absolute left-[21px] top-12 bottom-[-20px] w-[3px] z-0 transition-colors ${
                     isCompleted ? 'bg-blue-600' : 'bg-slate-200'
                   }`}
                 />
@@ -131,18 +139,18 @@ export const CareerPathView: React.FC<CareerPathViewProps> = ({ onNavigate }) =>
               {/* Node Icon */}
               <div className="relative z-10 shrink-0">
                 {isInProgress && (
-                  <div className="absolute -inset-1.5 bg-blue-400 rounded-2xl animate-pulse-ring opacity-50" />
+                  <div className="absolute -inset-2 bg-blue-400 rounded-2xl animate-pulse-ring opacity-50" />
                 )}
                 <div
-                  className={`w-9 h-9 rounded-xl flex items-center justify-center text-sm shadow-xs transition-all ${
+                  className={`w-11 h-11 rounded-2xl flex items-center justify-center text-sm shadow-xs transition-all ${
                     isCompleted
                       ? 'bg-blue-600 text-white'
                       : isInProgress
                       ? 'bg-blue-600 text-white ring-4 ring-blue-100'
-                      : 'bg-white border border-slate-300 text-slate-400'
+                      : 'bg-white border-2 border-slate-300 text-slate-400'
                   }`}
                 >
-                  <span className="material-symbols-outlined text-[18px]">
+                  <span className="material-symbols-outlined text-[22px]">
                     {isCompleted ? 'check' : m.icon}
                   </span>
                 </div>
@@ -151,22 +159,22 @@ export const CareerPathView: React.FC<CareerPathViewProps> = ({ onNavigate }) =>
               {/* Card Body */}
               <div
                 onClick={() => toggleNode(m.id)}
-                className={`flex-1 rounded-2xl p-3.5 bg-white border border-slate-200 cursor-pointer transition-all shadow-xs ${
+                className={`flex-1 rounded-3xl p-5 md:p-6 bg-white border border-slate-200 cursor-pointer transition-all shadow-xs ${
                   isInProgress
-                    ? 'border-blue-500 shadow-blue-500/10 ring-1 ring-blue-500/20'
+                    ? 'border-blue-500 shadow-md shadow-blue-500/10 ring-1 ring-blue-500/30'
                     : 'hover:border-blue-300'
                 }`}
               >
-                <div className="flex items-center justify-between gap-1 mb-1">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                <div className="flex items-center justify-between gap-2 mb-1.5">
+                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider font-mono">
                     {m.stage}
                   </span>
                   <span
-                    className={`text-[9px] font-bold px-1.5 py-0.2 rounded uppercase tracking-wider ${
+                    className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider font-mono ${
                       isCompleted
-                        ? 'bg-emerald-50 text-emerald-700'
+                        ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                         : isInProgress
-                        ? 'bg-blue-50 text-blue-700'
+                        ? 'bg-blue-50 text-blue-700 border border-blue-200'
                         : 'bg-slate-100 text-slate-500'
                     }`}
                   >
@@ -174,32 +182,32 @@ export const CareerPathView: React.FC<CareerPathViewProps> = ({ onNavigate }) =>
                   </span>
                 </div>
 
-                <h3 className="text-xs font-bold text-slate-900 leading-snug">{m.title}</h3>
-                <p className="text-[11px] text-slate-600 mt-1 leading-relaxed">{m.description}</p>
+                <h3 className="text-sm md:text-base font-bold text-slate-900 leading-snug font-sans">{m.title}</h3>
+                <p className="text-xs md:text-sm text-slate-600 mt-1.5 leading-relaxed">{m.description}</p>
 
                 {/* Expandable Deliverables */}
                 {isExpanded && (
-                  <div className="mt-3 pt-2.5 border-t border-slate-100 space-y-1.5 animate-in fade-in duration-150">
-                    <p className="text-[10px] font-bold text-slate-700 uppercase tracking-wider">
-                      Core Milestones:
+                  <div className="mt-4 pt-3.5 border-t border-slate-100 space-y-2 animate-in fade-in duration-150">
+                    <p className="text-xs font-bold text-slate-700 uppercase tracking-wider font-mono">
+                      Phase Deliverables &amp; Targets:
                     </p>
-                    <ul className="space-y-1">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5">
                       {m.deliverables.map((d, dIdx) => (
-                        <li
+                        <div
                           key={dIdx}
-                          className="flex items-center gap-2 text-[11px] text-slate-700 bg-slate-50 p-2 rounded-lg border border-slate-100"
+                          className="flex items-center gap-2 text-xs text-slate-700 bg-slate-50 p-3 rounded-2xl border border-slate-100 font-medium"
                         >
                           <span
-                            className={`material-symbols-outlined text-[14px] ${
-                              isCompleted ? 'text-emerald-600' : isInProgress ? 'text-blue-600' : 'text-slate-300'
+                            className={`material-symbols-outlined text-[18px] shrink-0 ${
+                              isCompleted ? 'text-emerald-600' : isInProgress ? 'text-blue-600' : 'text-slate-400'
                             }`}
                           >
                             {isCompleted ? 'check_circle' : 'radio_button_unchecked'}
                           </span>
-                          <span>{d}</span>
-                        </li>
+                          <span className="leading-snug">{d}</span>
+                        </div>
                       ))}
-                    </ul>
+                    </div>
                   </div>
                 )}
               </div>

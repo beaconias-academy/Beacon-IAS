@@ -27,7 +27,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentScreen, onNavigate 
 
   return (
     <nav
-      className="sticky bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md pb-safe border-t border-slate-200 shadow-[0_-4px_16px_rgba(0,0,0,0.04)] select-none"
+      className="md:hidden sticky bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md pb-safe border-t border-slate-200 shadow-[0_-4px_16px_rgba(0,0,0,0.04)] select-none"
       id="bottom-navigation-bar"
     >
       <div className="w-full flex justify-around items-center h-16 px-1.5">

@@ -76,23 +76,23 @@ export const AssessmentView: React.FC<AssessmentViewProps> = ({
   const progressPercent = Math.round(((currentStep + 1) / totalQuestions) * 100);
 
   return (
-    <div className="flex flex-col w-full pb-24 p-3.5 sm:p-4 space-y-4 animate-in fade-in duration-200">
+    <div className="w-full max-w-4xl mx-auto pb-24 md:pb-12 p-3 sm:p-4 md:p-6 lg:p-8 space-y-6 animate-in fade-in duration-200">
       {/* Progress Header */}
-      <section className="rounded-2xl p-3.5 bg-white border border-slate-200 shadow-xs space-y-2">
-        <div className="flex justify-between items-center text-xs">
-          <div className="flex items-center gap-1.5">
-            <span className="font-bold text-blue-700 uppercase tracking-wider text-[10px]">
+      <section className="rounded-3xl p-5 md:p-6 bg-white border border-slate-200 shadow-sm space-y-3">
+        <div className="flex justify-between items-center text-xs md:text-sm">
+          <div className="flex items-center gap-2">
+            <span className="font-bold text-blue-700 uppercase tracking-wider text-xs font-mono">
               Question {currentStep + 1} of {totalQuestions}
             </span>
             <span className="text-slate-300">•</span>
-            <span className="text-slate-600 font-medium">{currentQuestion.category}</span>
+            <span className="text-slate-600 font-semibold">{currentQuestion.category}</span>
           </div>
-          <span className="font-mono font-bold text-slate-700 text-xs">
-            {progressPercent}%
+          <span className="font-mono font-bold text-slate-700 text-xs md:text-sm">
+            {progressPercent}% Completed
           </span>
         </div>
 
-        <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+        <div className="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
           <div
             className="h-full bg-blue-600 rounded-full transition-all duration-300 ease-out"
             style={{ width: `${progressPercent}%` }}
@@ -101,81 +101,77 @@ export const AssessmentView: React.FC<AssessmentViewProps> = ({
       </section>
 
       {/* Question Card */}
-      <section className="rounded-2xl p-4 bg-white border border-slate-200 shadow-xs space-y-3">
-        <h2 className="text-slate-900 text-base font-bold leading-snug">
-          {currentQuestion.question}
-        </h2>
-        <p className="text-xs text-slate-500">
-          Choose the response that best describes your approach to governance and decision-making.
-        </p>
+      <section className="rounded-3xl p-6 md:p-8 bg-white border border-slate-200 shadow-sm space-y-6">
+        <div>
+          <span className="text-[10px] font-extrabold uppercase tracking-widest text-slate-400 font-mono">
+            BEACON 5-FACTOR PSYCHOMETRIC ENGINE
+          </span>
+          <h2 className="text-lg md:text-2xl font-bold text-slate-900 mt-2 leading-snug font-sans">
+            {currentQuestion.question}
+          </h2>
+          <p className="text-xs md:text-sm text-slate-500 mt-1">
+            Choose the approach that most accurately reflects your natural instincts in administrative scenarios.
+          </p>
+        </div>
 
-        {/* Options List */}
-        <div className="space-y-2.5 pt-2" id="assessment-options">
+        {/* Options List Grid (1 col on mobile, 2 cols on tablet/laptop if short, or full-width) */}
+        <div className="space-y-3">
           {currentQuestion.options.map((option) => {
             const isSelected = selectedOptionId === option.id;
+
             return (
               <button
                 key={option.id}
                 onClick={() => handleSelectOption(option.id)}
-                className={`flex items-start gap-3 p-3.5 rounded-2xl text-left w-full transition-all active:scale-[0.985] border ${
+                className={`w-full p-5 rounded-2xl md:rounded-3xl border text-left transition-all flex items-start gap-4 cursor-pointer ${
                   isSelected
-                    ? 'bg-blue-50/80 border-blue-600 text-slate-900 shadow-2xs font-semibold'
-                    : 'bg-white text-slate-800 border-slate-200 hover:border-blue-300'
+                    ? 'border-blue-600 bg-blue-50/80 shadow-xs'
+                    : 'border-slate-200 bg-slate-50/60 hover:bg-slate-100 hover:border-slate-300'
                 }`}
               >
                 <div
-                  className={`w-9 h-9 shrink-0 rounded-xl flex items-center justify-center transition-colors shadow-2xs mt-0.5 ${
+                  className={`w-6 h-6 rounded-full border-2 flex items-center justify-center mt-0.5 shrink-0 transition-all ${
                     isSelected
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-blue-50 text-blue-700'
+                      ? 'border-blue-600 bg-blue-600 text-white'
+                      : 'border-slate-300 bg-white'
                   }`}
                 >
-                  <span
-                    className="material-symbols-outlined text-[20px]"
-                    style={isSelected ? { fontVariationSettings: "'FILL' 1" } : {}}
-                  >
-                    {option.icon}
-                  </span>
+                  {isSelected && (
+                    <span className="w-2 h-2 rounded-full bg-white" />
+                  )}
                 </div>
+
                 <div className="flex-1 min-w-0">
-                  <p className={`text-xs ${isSelected ? 'font-bold text-blue-950' : 'font-semibold text-slate-800'}`}>
+                  <span className={`text-xs md:text-sm leading-relaxed block ${isSelected ? 'font-bold text-blue-950' : 'font-bold text-slate-900'}`}>
                     {option.title}
-                  </p>
-                  <p className="text-[11px] text-slate-500 mt-0.5 leading-relaxed">{option.description}</p>
+                  </span>
+                  <span className="text-xs text-slate-500 mt-0.5 block leading-relaxed">
+                    {option.description}
+                  </span>
                 </div>
               </button>
             );
           })}
         </div>
+
+        {/* Footer Navigation */}
+        <div className="flex items-center justify-between pt-4 border-t border-slate-100 gap-3">
+          <button
+            onClick={handlePrev}
+            className="px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs md:text-sm font-bold transition-all cursor-pointer"
+          >
+            ← {currentStep === 0 ? 'Back to Home' : 'Previous'}
+          </button>
+
+          <button
+            onClick={handleNext}
+            className="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs md:text-sm font-bold shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
+          >
+            <span>{currentStep === totalQuestions - 1 ? 'Calculate My Archetype' : 'Next Question'}</span>
+            <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+          </button>
+        </div>
       </section>
-
-      {/* Stepper Navigation */}
-      <div className="flex items-center justify-between gap-3 pt-1">
-        <button
-          onClick={handlePrev}
-          className="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-all flex items-center gap-1"
-        >
-          <span className="material-symbols-outlined text-[16px]">arrow_back</span>
-          {currentStep === 0 ? 'Dashboard' : 'Previous'}
-        </button>
-
-        <button
-          onClick={handleNext}
-          className="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-xs active:scale-95 transition-all flex items-center justify-center gap-1"
-        >
-          {currentStep === totalQuestions - 1 ? (
-            <>
-              <span className="material-symbols-outlined text-[16px]">psychology</span>
-              Calculate Archetype
-            </>
-          ) : (
-            <>
-              Next Question
-              <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
-            </>
-          )}
-        </button>
-      </div>
     </div>
   );
 };

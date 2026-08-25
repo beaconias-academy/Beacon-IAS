@@ -38,7 +38,7 @@ export const AiAssistantView: React.FC = () => {
 
   // Assistant Mode & Persona
   const [selectedPersona, setSelectedPersona] = useState<'gs-fast' | 'mains-review' | 'quiz-flashcards'>('gs-fast');
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedSubject, setSelectedSubject] = useState<string>('GS Paper 2 - Polity & Governance');
   const [isVoiceRecording, setIsVoiceRecording] = useState<boolean>(false);
   const [voiceSeconds, setVoiceSeconds] = useState<number>(0);
   const [showAttachmentSheet, setShowAttachmentSheet] = useState<boolean>(false);
@@ -52,7 +52,7 @@ export const AiAssistantView: React.FC = () => {
     {
       id: '1',
       sender: 'ai',
-      text: "Namaste Abhinav! I'm **Beacon AI**, your civil services mentor.\n\nI am continuously synced with the UPSC Civil Services and KPSC syllabus, landmark Supreme Court constitutional doctrines, and real-time economic indicators.\n\nHow can I accelerate your preparation right now?",
+      text: "Namaste Abhinav! I'm **Beacon AI**, your dedicated civil services mentor.\n\nI am continuously synced with the UPSC Civil Services & KPSC syllabus, landmark Supreme Court constitutional doctrines, and real-time economic indicators.\n\nHow can I accelerate your preparation right now?",
       timestamp: '10:14 AM',
       keyArticles: [
         { article: 'Article 32', summary: 'Right to Constitutional Remedies (Basic Structure)' },
@@ -110,6 +110,8 @@ export const AiAssistantView: React.FC = () => {
     { label: '📈 RBI Monetary Policy', prompt: 'How does the RBI MPC utilize Repo Rate and SDF to manage inflation?' },
     { label: '✍️ Review my Mains Answer', prompt: 'Evaluate a 250-word answer on Cooperative Federalism with scoring.' },
     { label: '📇 Flashcard Drill: Articles', prompt: 'Generate interactive flashcards on Fundamental Duties (Art. 51A).' },
+    { label: '🌍 Indus Waters Treaty', prompt: 'Analyze the dispute resolution mechanism under the Indus Waters Treaty 1960.' },
+    { label: '⚖️ Ethics Case Study', prompt: 'Provide a framework to solve GS4 Ethical Dilemmas involving whistleblower protection.' },
   ];
 
   const handleSendMessage = (textToSend?: string) => {
@@ -131,18 +133,18 @@ export const AiAssistantView: React.FC = () => {
       let aiReply: Message;
       const lower = query.toLowerCase();
 
-      if (lower.includes('mains') || lower.includes('answer') || lower.includes('review')) {
+      if (lower.includes('mains') || lower.includes('answer') || lower.includes('review') || selectedPersona === 'mains-review') {
         aiReply = {
           id: (Date.now() + 1).toString(),
           sender: 'ai',
-          text: "### 📝 Beacon AI Mains Answer Evaluation\n\nI have evaluated the submission based on official UPSC evaluation parameters:\n\n• **Introduction**: Clear definition and constitutional backing.\n• **Body Arguments**: Well-structured points on fiscal relations.\n• **Way Forward**: Recommended Sarkaria & Punchhi commission references.",
+          text: "### 📝 Beacon AI Mains Answer Evaluation\n\nI have evaluated your draft based on official UPSC Mains grading standards:\n\n• **Introduction**: Solid constitutional contextualization (Articles 245-293 cited).\n• **Body Arguments**: Good points on fiscal federalism, but needs quantitative data from 15th & 16th Finance Commissions.\n• **Way Forward**: Recommended Sarkaria & Punchhi commission references.",
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
           mainsReview: {
             score: 11.5,
             maxScore: 15,
             breakdown: [
-              { label: 'Conceptual Clarity', score: '4.0 / 5' },
-              { label: 'Constitutional Articles', score: '3.5 / 5' },
+              { label: 'Conceptual Clarity & Context', score: '4.0 / 5' },
+              { label: 'Constitutional Articles & Facts', score: '3.5 / 5' },
               { label: 'Conclusion & Way Forward', score: '4.0 / 5' },
             ],
             improvements: [
@@ -152,16 +154,16 @@ export const AiAssistantView: React.FC = () => {
             modelAnswer: 'A robust conclusion must emphasize that competitive federalism should transform into collaborative and trust-based federalism for achieving the $5T economy vision.',
           },
         };
-      } else if (lower.includes('flashcard') || lower.includes('card') || lower.includes('51a')) {
+      } else if (lower.includes('flashcard') || lower.includes('card') || lower.includes('51a') || selectedPersona === 'quiz-flashcards') {
         aiReply = {
           id: (Date.now() + 1).toString(),
           sender: 'ai',
-          text: "Here is your high-yield **3D Flashcard Deck on Fundamental Duties (Article 51A)**. Tap to flip each card!",
+          text: "Here is your high-yield **Interactive Flashcard Deck on Fundamental Duties (Article 51A)**. Tap to flip each card!",
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
           flashcards: [
             {
-              front: 'Which committee recommended the inclusion of Fundamental Duties?',
-              back: 'Swaran Singh Committee (1976) recommended 8 duties; 42nd CAA added 10 duties.',
+              front: 'Which committee recommended the inclusion of Fundamental Duties in the Constitution?',
+              back: 'Swaran Singh Committee (1976) recommended 8 duties; the 42nd Amendment Act added 10 duties.',
               category: 'Polity & Constitution',
             },
             {
@@ -171,7 +173,7 @@ export const AiAssistantView: React.FC = () => {
             },
             {
               front: 'Are Fundamental Duties legally enforceable in courts of law?',
-              back: 'No, they are non-justiciable. However, Parliament can enforce them by suitable legislation (e.g. Prevention of Insults to National Honour Act).',
+              back: 'No, they are non-justiciable. However, Parliament can enforce them by suitable legislation (e.g., Prevention of Insults to National Honour Act).',
               category: 'Polity & Constitution',
             },
           ],
@@ -180,7 +182,7 @@ export const AiAssistantView: React.FC = () => {
         aiReply = {
           id: (Date.now() + 1).toString(),
           sender: 'ai',
-          text: `### 🏛️ High-Yield Study Notes: ${query}\n\n• **Core Concept**: Directly relevant to GS Paper 2 & GS Paper 3 syllabus.\n• **Supreme Court Doctrines**: Kesavananda Bharati (1973), Minerva Mills (1980), and S.R. Bommai (1994).\n• **Key Takeaway for Prelims**: Focus on constitutional amendments and statutory bodies.`,
+          text: `### 🏛️ High-Yield Study Synthesis: ${query}\n\n• **Core Syllabus Relevance**: Directly mapped to ${selectedSubject}.\n• **Key Supreme Court Doctrines**: Kesavananda Bharati (1973), Minerva Mills (1980), and S.R. Bommai (1994).\n• **Prelims High-Yield Trap**: Be careful with exceptions to Union List jurisdiction under Article 249 (National Interest) and Article 252 (State Request).`,
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
           keyArticles: [
             { article: 'Article 14-18', summary: 'Right to Equality & Affirmative Action' },
@@ -195,290 +197,389 @@ export const AiAssistantView: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col w-full h-[calc(100vh-8rem)] sm:h-[800px] bg-slate-50 relative overflow-hidden animate-in fade-in duration-200">
-      {/* Persona Mode Switcher Bar */}
-      <div className="px-3.5 py-2 bg-white border-b border-slate-200/90 flex items-center justify-between gap-2 shrink-0 z-10 shadow-2xs">
-        <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl flex-1">
-          {[
-            { id: 'gs-fast' as const, label: 'GS-Fast', icon: 'bolt' },
-            { id: 'mains-review' as const, label: 'Mains Evaluator', icon: 'rate_review' },
-            { id: 'quiz-flashcards' as const, label: 'Flashcards', icon: 'style' },
-          ].map((p) => (
-            <button
-              key={p.id}
-              onClick={() => {
-                setSelectedPersona(p.id);
-                showToast(`Switched persona to ${p.label}`, 'info');
-              }}
-              className={`flex-1 py-1.5 px-2 rounded-lg text-[11px] font-bold flex items-center justify-center gap-1 transition-all ${
-                selectedPersona === p.id
-                  ? 'bg-white text-blue-700 shadow-xs'
-                  : 'text-slate-500 hover:text-slate-800'
-              }`}
-            >
-              <span className="material-symbols-outlined text-[15px]">{p.icon}</span>
-              <span className="truncate">{p.label}</span>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Suggested Prompt Chips */}
-      <div className="px-3.5 py-1.5 bg-slate-100/70 border-b border-slate-200/60 flex gap-1.5 overflow-x-auto no-scrollbar shrink-0">
-        {starterChips.map((chip, idx) => (
-          <button
-            key={idx}
-            onClick={() => handleSendMessage(chip.prompt)}
-            className="px-2.5 py-1 rounded-lg bg-white hover:bg-blue-50 text-slate-700 hover:text-blue-700 text-[10px] font-semibold border border-slate-200 shadow-2xs shrink-0 transition-colors"
-          >
-            {chip.label}
-          </button>
-        ))}
-      </div>
-
-      {/* Chat Messages Stream */}
-      <div className="flex-1 overflow-y-auto p-3.5 space-y-3.5 custom-scrollbar">
-        {messages.map((msg) => {
-          const isAi = msg.sender === 'ai';
-
-          return (
-            <div
-              key={msg.id}
-              className={`flex flex-col ${isAi ? 'items-start' : 'items-end'} space-y-1.5`}
-            >
-              <div className={`flex items-end gap-2 max-w-[92%] ${isAi ? 'flex-row' : 'flex-row-reverse'}`}>
-                {isAi && (
-                  <img
-                    src={ASSETS.beaconAiAvatar}
-                    alt="Beacon AI"
-                    className="w-8 h-8 rounded-xl object-contain ring-2 ring-blue-500/20 shadow-xs shrink-0 mb-0.5"
-                  />
-                )}
-
-                <div
-                  className={`p-3.5 rounded-2xl text-xs leading-relaxed shadow-xs ${
-                    isAi
-                      ? 'bg-white text-slate-800 border border-slate-200/90 rounded-bl-xs'
-                      : 'bg-blue-600 text-white rounded-br-xs font-medium'
+    <div className="w-full max-w-7xl mx-auto h-[calc(100vh-7.5rem)] min-h-[600px] pb-20 md:pb-6 p-2 sm:p-4 md:p-6 lg:p-8 animate-in fade-in duration-200">
+      {/* 2-Column Responsive Layout on Desktop/Laptop */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 h-full items-stretch">
+        {/* Left Column (4 cols on lg): AI Controls, Syllabus Selector, Quick Prompts */}
+        <aside className="hidden lg:flex lg:col-span-4 flex-col bg-white rounded-3xl p-5 border border-slate-200 shadow-sm space-y-5 overflow-y-auto custom-scrollbar">
+          {/* Persona Card */}
+          <div className="space-y-2">
+            <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-400 font-mono">
+              AI Persona Mode
+            </h3>
+            <div className="space-y-2">
+              {[
+                { id: 'gs-fast' as const, label: 'GS Prelims & Mains Fast-Track', icon: 'bolt', desc: 'Instant constitutional articles, economic formulas, and map facts.' },
+                { id: 'mains-review' as const, label: 'Mains Answer Evaluator', icon: 'rate_review', desc: 'Rubric-based 15-mark scoring and model conclusion generator.' },
+                { id: 'quiz-flashcards' as const, label: 'Flashcards & Sectional Quiz', icon: 'style', desc: 'Active recall drills and 3D flip card memory reinforcement.' },
+              ].map((p) => (
+                <button
+                  key={p.id}
+                  onClick={() => {
+                    setSelectedPersona(p.id);
+                    showToast(`Switched to ${p.label}`, 'info');
+                  }}
+                  className={`w-full p-3 rounded-2xl border text-left transition-all ${
+                    selectedPersona === p.id
+                      ? 'bg-blue-50/90 border-blue-500 shadow-xs'
+                      : 'bg-slate-50/60 border-slate-200 hover:border-blue-300'
                   }`}
                 >
-                  <div className="whitespace-pre-line prose-xs">{msg.text}</div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className={`material-symbols-outlined text-[18px] ${selectedPersona === p.id ? 'text-blue-600' : 'text-slate-500'}`}>
+                      {p.icon}
+                    </span>
+                    <span className={`text-xs font-bold ${selectedPersona === p.id ? 'text-blue-900' : 'text-slate-800'}`}>
+                      {p.label}
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-slate-500 leading-snug">{p.desc}</p>
+                </button>
+              ))}
+            </div>
+          </div>
 
-                  {/* Interactive MCQ Quiz inside message */}
-                  {msg.quiz && (
-                    <div className="mt-3 p-3 bg-blue-50/80 rounded-xl border border-blue-200 space-y-2">
-                      <div className="flex items-center justify-between text-[10px] font-bold text-blue-800 uppercase tracking-wider">
-                        <span>Interactive Quiz Drill</span>
-                        <span>{msg.quiz.articleRef}</span>
+          {/* Subject Context Selector */}
+          <div className="space-y-2">
+            <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-400 font-mono">
+              Syllabus Module Context
+            </h3>
+            <select
+              value={selectedSubject}
+              onChange={(e) => setSelectedSubject(e.target.value)}
+              className="w-full bg-slate-50 border border-slate-200 text-slate-800 text-xs font-semibold rounded-xl p-2.5 outline-none focus:border-blue-600"
+            >
+              <option>GS Paper 1 - History, Geography & Society</option>
+              <option>GS Paper 2 - Polity & Governance</option>
+              <option>GS Paper 3 - Economy, Environment & Security</option>
+              <option>GS Paper 4 - Ethics, Integrity & Aptitude</option>
+              <option>Essay - Philosophical & Current Affairs</option>
+            </select>
+          </div>
+
+          {/* High-Yield Prompts */}
+          <div className="space-y-2 flex-1">
+            <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-400 font-mono">
+              Recommended Prompts
+            </h3>
+            <div className="space-y-1.5">
+              {starterChips.map((chip, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => handleSendMessage(chip.prompt)}
+                  className="w-full p-2.5 rounded-xl bg-slate-50 hover:bg-blue-50 text-slate-700 hover:text-blue-700 text-xs font-semibold text-left border border-slate-200 transition-all flex items-center justify-between"
+                >
+                  <span className="truncate">{chip.label}</span>
+                  <span className="material-symbols-outlined text-[15px] text-slate-400">arrow_forward</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </aside>
+
+        {/* Right Column (8 cols on lg): Interactive Chat Canvas */}
+        <div className="lg:col-span-8 flex flex-col h-full bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden relative">
+          {/* Top Persona Bar (Mobile & Tablet) */}
+          <div className="px-4 py-2.5 bg-slate-50 border-b border-slate-200 flex items-center justify-between gap-2 shrink-0">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center p-1.5 shadow-xs">
+                <img src="/beacon-ai.svg" alt="Beacon AI" className="w-full h-full object-contain brightness-200" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h2 className="text-xs md:text-sm font-bold text-slate-900">Beacon AI Civil Services Mentor</h2>
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                </div>
+                <span className="text-[10px] text-slate-400 font-mono">UPSC CSE 2026 High-Yield Engine</span>
+              </div>
+            </div>
+
+            {/* Mobile/Tablet Persona Tabs */}
+            <div className="lg:hidden flex bg-slate-200/80 p-0.5 rounded-xl gap-1">
+              {[
+                { id: 'gs-fast' as const, label: 'GS-Fast' },
+                { id: 'mains-review' as const, label: 'Mains' },
+                { id: 'quiz-flashcards' as const, label: 'Cards' },
+              ].map((p) => (
+                <button
+                  key={p.id}
+                  onClick={() => setSelectedPersona(p.id)}
+                  className={`px-2 py-1 rounded-lg text-[10px] font-bold ${
+                    selectedPersona === p.id ? 'bg-white text-blue-700 shadow-xs' : 'text-slate-600'
+                  }`}
+                >
+                  {p.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Quick Prompt Chips (Horizontal) */}
+          <div className="px-4 py-2 bg-slate-100/60 border-b border-slate-200 flex gap-2 overflow-x-auto custom-scrollbar shrink-0">
+            {starterChips.map((chip, idx) => (
+              <button
+                key={idx}
+                onClick={() => handleSendMessage(chip.prompt)}
+                className="px-3 py-1 rounded-lg bg-white hover:bg-blue-50 text-slate-700 hover:text-blue-700 text-xs font-semibold border border-slate-200 shadow-2xs shrink-0 transition-colors whitespace-nowrap"
+              >
+                {chip.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Chat Messages Stream */}
+          <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4 custom-scrollbar">
+            {messages.map((msg) => {
+              const isAi = msg.sender === 'ai';
+
+              return (
+                <div
+                  key={msg.id}
+                  className={`flex flex-col ${isAi ? 'items-start' : 'items-end'} space-y-1.5`}
+                >
+                  <div className={`flex items-end gap-2.5 max-w-[95%] md:max-w-[85%] ${isAi ? 'flex-row' : 'flex-row-reverse'}`}>
+                    {isAi && (
+                      <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center p-1.5 text-white shadow-xs shrink-0">
+                        <img src="/beacon-ai.svg" alt="AI" className="w-full h-full object-contain brightness-200" />
                       </div>
-                      <p className="font-bold text-slate-900 text-xs">{msg.quiz.question}</p>
+                    )}
 
-                      <div className="space-y-1.5 pt-1">
-                        {msg.quiz.options.map((opt, oIdx) => {
-                          const userPicked = quizUserAnswers[msg.id] === oIdx;
-                          const isCorrect = oIdx === msg.quiz!.correctIndex;
-                          const hasAnswered = quizUserAnswers[msg.id] !== undefined;
+                    <div
+                      className={`p-4 md:p-5 rounded-3xl text-xs md:text-sm leading-relaxed ${
+                        isAi
+                          ? 'bg-slate-100/80 text-slate-900 border border-slate-200/80 shadow-2xs rounded-bl-xs'
+                          : 'bg-blue-600 text-white rounded-br-xs shadow-md'
+                      }`}
+                    >
+                      <div className="whitespace-pre-line font-sans">{msg.text}</div>
 
-                          return (
-                            <button
-                              key={oIdx}
-                              disabled={hasAnswered}
-                              onClick={() => {
-                                setQuizUserAnswers((prev) => ({ ...prev, [msg.id]: oIdx }));
-                                showToast(
-                                  isCorrect ? 'Correct! +5 Accuracy Points' : 'Incorrect. Check the explanation.',
-                                  isCorrect ? 'success' : 'warning'
-                                );
-                              }}
-                              className={`w-full text-left p-2 rounded-lg text-xs flex items-center justify-between border transition-all ${
-                                hasAnswered
-                                  ? isCorrect
-                                    ? 'bg-emerald-100 border-emerald-400 text-emerald-900 font-bold'
-                                    : userPicked
-                                    ? 'bg-rose-100 border-rose-400 text-rose-900'
-                                    : 'bg-white/60 border-slate-200 text-slate-500'
-                                  : 'bg-white border-slate-200 hover:border-blue-400 text-slate-800'
-                              }`}
-                            >
-                              <span>{opt}</span>
-                              {hasAnswered && isCorrect && (
-                                <span className="material-symbols-outlined text-emerald-600 text-base">check_circle</span>
-                              )}
-                            </button>
-                          );
-                        })}
-                      </div>
+                      {/* Key Articles Pill List */}
+                      {msg.keyArticles && (
+                        <div className="mt-3 pt-3 border-t border-slate-200/80 space-y-1.5">
+                          <span className="text-[10px] font-extrabold uppercase text-slate-500 font-mono block">
+                            Key Constitutional References:
+                          </span>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            {msg.keyArticles.map((art, idx) => (
+                              <div key={idx} className="p-2 bg-white rounded-xl border border-slate-200 text-[11px]">
+                                <strong className="text-blue-700 block font-mono">{art.article}</strong>
+                                <span className="text-slate-600">{art.summary}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
 
-                      {quizUserAnswers[msg.id] !== undefined && (
-                        <p className="text-[11px] text-slate-700 bg-white p-2 rounded-lg border border-blue-100 mt-2">
-                          <strong>Explanation:</strong> {msg.quiz.explanation}
-                        </p>
+                      {/* Interactive Sectional Quiz */}
+                      {msg.quiz && (
+                        <div className="mt-3.5 p-4 rounded-2xl bg-white border border-slate-200 space-y-2.5 shadow-xs">
+                          <span className="text-[10px] font-bold text-blue-700 uppercase bg-blue-50 px-2 py-0.5 rounded border border-blue-100">
+                            Quick Quiz Drill
+                          </span>
+                          <p className="font-bold text-slate-900 text-xs md:text-sm">{msg.quiz.question}</p>
+                          <div className="space-y-1.5">
+                            {msg.quiz.options.map((opt, idx) => {
+                              const answered = quizUserAnswers[msg.id] !== undefined;
+                              const isSelected = quizUserAnswers[msg.id] === idx;
+                              const isCorrect = idx === msg.quiz?.correctIndex;
+
+                              let btnStyle = 'bg-slate-50 border-slate-200 hover:border-blue-400 text-slate-800';
+                              if (answered) {
+                                if (isCorrect) btnStyle = 'bg-emerald-50 border-emerald-500 text-emerald-800 font-bold';
+                                else if (isSelected) btnStyle = 'bg-rose-50 border-rose-400 text-rose-800';
+                              }
+
+                              return (
+                                <button
+                                  key={idx}
+                                  disabled={answered}
+                                  onClick={() => {
+                                    setQuizUserAnswers((prev) => ({ ...prev, [msg.id]: idx }));
+                                    showToast(idx === msg.quiz?.correctIndex ? 'Correct Answer! (+10 XP)' : 'Incorrect! See explanation below.', idx === msg.quiz?.correctIndex ? 'success' : 'warning');
+                                  }}
+                                  className={`w-full text-left p-2.5 rounded-xl border text-xs transition-all flex items-center justify-between ${btnStyle}`}
+                                >
+                                  <span>{opt}</span>
+                                  {answered && isCorrect && (
+                                    <span className="material-symbols-outlined text-[16px] text-emerald-600">check_circle</span>
+                                  )}
+                                </button>
+                              );
+                            })}
+                          </div>
+                          {quizUserAnswers[msg.id] !== undefined && (
+                            <div className="p-2.5 bg-blue-50/70 rounded-xl text-[11px] text-blue-900 border border-blue-100">
+                              <strong>Explanation:</strong> {msg.quiz.explanation}
+                            </div>
+                          )}
+                        </div>
+                      )}
+
+                      {/* Interactive 3D Flip Flashcards */}
+                      {msg.flashcards && (
+                        <div className="mt-3.5 space-y-2">
+                          {(() => {
+                            const curIdx = flashcardIndices[msg.id] || 0;
+                            const isFlipped = flashcardFlipped[msg.id] || false;
+                            const curCard = msg.flashcards[curIdx];
+
+                            return (
+                              <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3">
+                                <div className="flex items-center justify-between text-[10px] font-mono text-slate-400">
+                                  <span className="font-bold text-blue-700 uppercase bg-blue-50 px-2 py-0.5 rounded">
+                                    Card {curIdx + 1} of {msg.flashcards.length}
+                                  </span>
+                                  <span>Tap card to flip</span>
+                                </div>
+
+                                <div
+                                  onClick={() => setFlashcardFlipped((prev) => ({ ...prev, [msg.id]: !isFlipped }))}
+                                  className="min-h-[110px] p-5 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 flex flex-col justify-center items-center text-center cursor-pointer shadow-2xs hover:shadow-xs transition-all"
+                                >
+                                  <span className="text-[10px] uppercase font-bold text-blue-600 tracking-wider mb-1 font-mono">
+                                    {isFlipped ? 'Answer & Details' : 'Question / Concept'}
+                                  </span>
+                                  <p className="text-xs md:text-sm font-bold text-slate-900 leading-snug">
+                                    {isFlipped ? curCard.back : curCard.front}
+                                  </p>
+                                </div>
+
+                                <div className="flex items-center justify-between gap-2 pt-1">
+                                  <button
+                                    disabled={curIdx === 0}
+                                    onClick={() => {
+                                      setFlashcardIndices((prev) => ({ ...prev, [msg.id]: curIdx - 1 }));
+                                      setFlashcardFlipped((prev) => ({ ...prev, [msg.id]: false }));
+                                    }}
+                                    className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 disabled:opacity-40 text-xs font-bold text-slate-700"
+                                  >
+                                    Previous
+                                  </button>
+                                  <button
+                                    disabled={curIdx === msg.flashcards.length - 1}
+                                    onClick={() => {
+                                      setFlashcardIndices((prev) => ({ ...prev, [msg.id]: curIdx + 1 }));
+                                      setFlashcardFlipped((prev) => ({ ...prev, [msg.id]: false }));
+                                    }}
+                                    className="px-4 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-xs font-bold text-white shadow-xs"
+                                  >
+                                    Next Card
+                                  </button>
+                                </div>
+                              </div>
+                            );
+                          })()}
+                        </div>
+                      )}
+
+                      {/* Mains Answer Review Card */}
+                      {msg.mainsReview && (
+                        <div className="mt-3.5 p-4 md:p-5 rounded-2xl bg-white border border-slate-200 space-y-3 shadow-xs">
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs font-bold text-purple-700 bg-purple-50 px-2.5 py-0.5 rounded-md border border-purple-100 uppercase">
+                              Official Mains Scoring Rubric
+                            </span>
+                            <div className="text-right">
+                              <span className="text-lg font-extrabold text-slate-900 font-mono">{msg.mainsReview.score}</span>
+                              <span className="text-xs text-slate-400 font-mono"> / {msg.mainsReview.maxScore} Marks</span>
+                            </div>
+                          </div>
+
+                          <div className="space-y-1.5">
+                            {msg.mainsReview.breakdown.map((item, idx) => (
+                              <div key={idx} className="flex items-center justify-between text-xs py-1 border-b border-slate-100">
+                                <span className="text-slate-600">{item.label}</span>
+                                <span className="font-bold text-slate-900 font-mono">{item.score}</span>
+                              </div>
+                            ))}
+                          </div>
+
+                          <div className="p-3 bg-amber-50 rounded-xl border border-amber-200 text-xs text-amber-900 space-y-1">
+                            <strong className="block text-[11px] uppercase tracking-wider font-mono">High-Yield Improvements:</strong>
+                            <ul className="list-disc list-inside space-y-0.5">
+                              {msg.mainsReview.improvements.map((imp, idx) => (
+                                <li key={idx}>{imp}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
                       )}
                     </div>
-                  )}
-
-                  {/* 3D Flip Flashcards inside message */}
-                  {msg.flashcards && (
-                    <div className="mt-3 space-y-2">
-                      {(() => {
-                        const curCardIdx = flashcardIndices[msg.id] || 0;
-                        const isFlipped = !!flashcardFlipped[msg.id];
-                        const card = msg.flashcards[curCardIdx];
-
-                        return (
-                          <div className="space-y-2">
-                            <div
-                              onClick={() =>
-                                setFlashcardFlipped((prev) => ({ ...prev, [msg.id]: !prev[msg.id] }))
-                              }
-                              className="w-full h-36 rounded-2xl bg-gradient-to-br from-indigo-900 to-slate-900 text-white p-4 flex flex-col justify-between shadow-md cursor-pointer select-none transition-all active:scale-98 relative"
-                            >
-                              <div className="flex justify-between text-[10px] font-mono text-amber-300">
-                                <span>{card.category}</span>
-                                <span>Tap to Flip ↻</span>
-                              </div>
-                              <p className="text-xs font-semibold text-center my-auto leading-relaxed text-blue-50">
-                                {isFlipped ? card.back : card.front}
-                              </p>
-                              <div className="text-[9px] text-slate-400 text-center font-mono">
-                                Card {curCardIdx + 1} of {msg.flashcards.length}
-                              </div>
-                            </div>
-
-                            <div className="flex justify-between items-center text-xs">
-                              <button
-                                disabled={curCardIdx === 0}
-                                onClick={() => {
-                                  setFlashcardIndices((prev) => ({
-                                    ...prev,
-                                    [msg.id]: Math.max(0, curCardIdx - 1),
-                                  }));
-                                  setFlashcardFlipped((prev) => ({ ...prev, [msg.id]: false }));
-                                }}
-                                className="px-2.5 py-1 bg-slate-100 rounded-lg disabled:opacity-40 font-bold"
-                              >
-                                ← Prev
-                              </button>
-                              <button
-                                disabled={curCardIdx === msg.flashcards.length - 1}
-                                onClick={() => {
-                                  setFlashcardIndices((prev) => ({
-                                    ...prev,
-                                    [msg.id]: Math.min(msg.flashcards!.length - 1, curCardIdx + 1),
-                                  }));
-                                  setFlashcardFlipped((prev) => ({ ...prev, [msg.id]: false }));
-                                }}
-                                className="px-2.5 py-1 bg-slate-100 rounded-lg disabled:opacity-40 font-bold"
-                              >
-                                Next →
-                              </button>
-                            </div>
-                          </div>
-                        );
-                      })()}
-                    </div>
-                  )}
-
-                  {/* Mains Evaluation Breakdown */}
-                  {msg.mainsReview && (
-                    <div className="mt-3 p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-2.5">
-                      <div className="flex items-center justify-between">
-                        <span className="font-bold text-xs text-slate-900">Evaluator Scorecard</span>
-                        <span className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 font-bold text-xs">
-                          {msg.mainsReview.score} / {msg.mainsReview.maxScore}
-                        </span>
-                      </div>
-
-                      <div className="space-y-1">
-                        {msg.mainsReview.breakdown.map((b, bIdx) => (
-                          <div key={bIdx} className="flex justify-between text-[11px] text-slate-600">
-                            <span>{b.label}</span>
-                            <span className="font-mono font-bold text-slate-800">{b.score}</span>
-                          </div>
-                        ))}
-                      </div>
-
-                      <div className="border-t border-slate-200 pt-2 space-y-1">
-                        <p className="text-[11px] font-bold text-slate-800">Priority Improvements:</p>
-                        <ul className="list-disc list-inside text-[11px] text-slate-600 space-y-0.5">
-                          {msg.mainsReview.improvements.map((imp, iIdx) => (
-                            <li key={iIdx}>{imp}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  )}
+                  </div>
+                  <span className="text-[10px] text-slate-400 font-mono px-1">{msg.timestamp}</span>
                 </div>
+              );
+            })}
+
+            {isTyping && (
+              <div className="flex items-center gap-2 text-xs text-slate-400 p-2">
+                <div className="w-2 h-2 rounded-full bg-blue-600 animate-bounce" />
+                <div className="w-2 h-2 rounded-full bg-blue-600 animate-bounce [animation-delay:0.2s]" />
+                <div className="w-2 h-2 rounded-full bg-blue-600 animate-bounce [animation-delay:0.4s]" />
+                <span>Beacon AI is analyzing constitutional doctrines...</span>
               </div>
-              <span className="text-[9px] text-slate-400 font-mono px-1">{msg.timestamp}</span>
-            </div>
-          );
-        })}
-
-        {isTyping && (
-          <div className="flex items-center gap-2 text-xs text-slate-500 bg-white p-2.5 px-3.5 rounded-2xl border border-slate-200 w-max shadow-xs">
-            <img
-              src={ASSETS.beaconAiAvatar}
-              alt="Beacon AI"
-              className="w-5 h-5 object-contain animate-spin"
-            />
-            <span className="font-semibold text-slate-700">Beacon AI is analyzing civil services knowledge base...</span>
+            )}
+            <div ref={messagesEndRef} />
           </div>
-        )}
 
-        <div ref={messagesEndRef} />
-      </div>
+          {/* Input Bar */}
+          <div className="p-3 md:p-4 bg-slate-50 border-t border-slate-200">
+            {isVoiceRecording ? (
+              <div className="flex items-center justify-between p-3 bg-rose-50 border border-rose-200 rounded-2xl animate-pulse">
+                <div className="flex items-center gap-2 text-rose-700 text-xs font-bold">
+                  <span className="w-3 h-3 rounded-full bg-rose-600 animate-ping" />
+                  <span>Recording Voice Note... ({formatVoiceTime(voiceSeconds)})</span>
+                </div>
+                <button
+                  onClick={() => {
+                    setIsVoiceRecording(false);
+                    handleSendMessage('Summarize recent Supreme Court judgements on Article 21 and Right to Privacy.');
+                  }}
+                  className="px-3 py-1 bg-rose-600 text-white rounded-xl text-xs font-bold shadow-xs"
+                >
+                  Send Audio Query
+                </button>
+              </div>
+            ) : (
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleSendMessage();
+                }}
+                className="flex items-center gap-2"
+              >
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsVoiceRecording(true);
+                    showToast('Listening... Speak your UPSC query', 'info', 'mic');
+                  }}
+                  className="w-10 h-10 rounded-2xl bg-white border border-slate-200 hover:border-blue-400 text-slate-600 flex items-center justify-center transition-all shrink-0 active:scale-95"
+                  title="Voice Input"
+                >
+                  <span className="material-symbols-outlined text-[20px]">mic</span>
+                </button>
 
-      {/* Bottom Message Input Bar */}
-      <div className="p-3 bg-white border-t border-slate-200/90 space-y-2 shrink-0">
-        {/* Voice recording live bar */}
-        {isVoiceRecording ? (
-          <div className="flex items-center justify-between bg-rose-50 border border-rose-200 p-2.5 rounded-2xl animate-pulse">
-            <div className="flex items-center gap-2 text-rose-700 font-bold text-xs">
-              <span className="w-2.5 h-2.5 rounded-full bg-rose-600 animate-ping" />
-              <span>Recording Voice Question ({formatVoiceTime(voiceSeconds)})</span>
-            </div>
-            <button
-              onClick={() => {
-                setIsVoiceRecording(false);
-                handleSendMessage("Can you summarize the 73rd Constitutional Amendment Act on Panchayati Raj?");
-              }}
-              className="px-3 py-1 bg-rose-600 text-white rounded-xl text-xs font-bold shadow-xs"
-            >
-              Stop &amp; Transcribe
-            </button>
+                <input
+                  type="text"
+                  value={inputVal}
+                  onChange={(e) => setInputVal(e.target.value)}
+                  placeholder="Ask any UPSC question, Article, Doctrine, or paste answer draft..."
+                  className="flex-1 bg-white px-4 py-3 rounded-2xl text-xs md:text-sm text-slate-900 border border-slate-200 focus:border-blue-600 outline-none shadow-2xs transition-all font-medium"
+                />
+
+                <button
+                  type="submit"
+                  disabled={!inputVal.trim()}
+                  className="w-10 h-10 rounded-2xl bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white flex items-center justify-center transition-all shrink-0 shadow-md active:scale-95 cursor-pointer"
+                  title="Send Message"
+                >
+                  <span className="material-symbols-outlined text-[20px]">send</span>
+                </button>
+              </form>
+            )}
           </div>
-        ) : (
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setIsVoiceRecording(true)}
-              className="w-10 h-10 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center shrink-0 active:scale-95 transition-all"
-              title="Voice Query"
-            >
-              <span className="material-symbols-outlined text-[20px]">mic</span>
-            </button>
-
-            <input
-              type="text"
-              value={inputVal}
-              onChange={(e) => setInputVal(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') handleSendMessage();
-              }}
-              placeholder="Ask Beacon AI about polity, current affairs, mains..."
-              className="flex-1 bg-slate-100 px-3.5 py-2.5 rounded-2xl text-xs font-semibold text-slate-900 placeholder-slate-400 outline-none focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 border border-transparent transition-all"
-            />
-
-            <button
-              onClick={() => handleSendMessage()}
-              disabled={!inputVal.trim()}
-              className="w-10 h-10 rounded-2xl bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white flex items-center justify-center shrink-0 active:scale-95 transition-all shadow-xs"
-              title="Send"
-            >
-              <span className="material-symbols-outlined text-[20px]">send</span>
-            </button>
-          </div>
-        )}
+        </div>
       </div>
     </div>
   );

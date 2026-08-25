@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AppRole, ScreenId } from './types';
 import { Header } from './components/Header';
+import { Sidebar } from './components/Sidebar';
 import { BottomNav } from './components/BottomNav';
 import { ToastProvider } from './components/Toast';
 import { GlobalSearchModal } from './components/GlobalSearchModal';
@@ -174,9 +175,20 @@ export function AppContent() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#f1f5f9] text-[#0f172a] flex justify-center items-start selection:bg-blue-100 selection:text-blue-900">
-      {/* Real Mobile App Viewport Container */}
-      <div className="w-full max-w-md min-h-screen bg-[#f8fafc] flex flex-col relative shadow-xl sm:border-x sm:border-slate-200">
+    <div className="min-h-screen w-full bg-slate-100 text-slate-900 flex selection:bg-blue-100 selection:text-blue-900">
+      {/* Tablet & Desktop Sidebar */}
+      <Sidebar
+        currentScreen={currentScreen}
+        role={role}
+        unreadCount={unreadNotificationsCount}
+        readinessScore={readinessScore}
+        profile={profile}
+        onNavigate={handleNavigate}
+        onRoleChange={handleRoleChange}
+      />
+
+      {/* Main Viewport Container (Adaptive: Mobile centered app on phone, Full-width responsive canvas on tablet/laptop) */}
+      <div className="flex-1 min-w-0 flex flex-col min-h-screen bg-slate-50 relative">
         {/* Top App Header */}
         <Header
           currentScreen={currentScreen}

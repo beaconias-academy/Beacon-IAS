@@ -41,7 +41,7 @@ export const Header: React.FC<HeaderProps> = ({
       case 'courses':
         return 'Courses & Lectures';
       case 'mentor':
-        return 'Mentorship';
+        return 'Mentorship Faculty';
       case 'assessment':
         return 'Aptitude Assessment';
       case 'archetype-result':
@@ -56,7 +56,7 @@ export const Header: React.FC<HeaderProps> = ({
         return 'Faculty Portal';
       case 'admin-command':
       case 'admin-analytics':
-        return 'Command Centre';
+        return 'Institutional Command Centre';
       default:
         return 'Beacon IAS';
     }
@@ -74,7 +74,7 @@ export const Header: React.FC<HeaderProps> = ({
       case 'student':
         return 'Student';
       case 'mentor':
-        return 'Mentor';
+        return 'Faculty';
       case 'admin':
         return 'Admin';
       default:
@@ -83,80 +83,186 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="sticky top-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs select-none pt-safe-top">
-      <div className="h-14 px-3.5 flex items-center justify-between gap-2">
-        {/* Left: Brand Logo / Back Button + Screen Title */}
-        <div className="flex items-center gap-2.5 min-w-0 flex-1">
-          {isSubScreen ? (
-            <button
-              id="header-back-button"
-              onClick={() => onNavigate('home')}
-              className="w-8 h-8 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 active:scale-95 transition-all shrink-0"
-              title="Go Back to Dashboard"
-            >
-              <span className="material-symbols-outlined text-[20px]">arrow_back</span>
-            </button>
-          ) : (
-            <button
-              onClick={() => onNavigate('home')}
-              className="flex items-center shrink-0 active:scale-95 transition-transform"
-            >
-              <img
-                src={ASSETS.beaconLogo}
-                alt="BEACON IAS"
-                className="h-8 w-8 rounded-xl object-cover ring-2 ring-amber-400/50 shadow-sm"
-              />
-            </button>
-          )}
-
-          <div className="min-w-0 flex flex-col justify-center">
-            <div className="flex items-center gap-1.5">
-              <span className="font-bold text-sm text-slate-900 tracking-tight truncate font-sans">
-                {getTitle()}
-              </span>
-              {role !== 'student' && (
-                <span className="px-1.5 py-0.2 rounded-md bg-blue-100 text-blue-800 text-[10px] font-bold uppercase tracking-wider shrink-0">
-                  {getRoleLabel()}
-                </span>
-              )}
-            </div>
-            {!isSubScreen && (
-              <span className="text-[10px] font-medium text-slate-500 truncate -mt-0.5">
-                {role === 'student' ? 'UPSC 2026 Aspirant' : role === 'mentor' ? 'Faculty Portal' : 'Admin Console'}
-              </span>
+    <header className="sticky top-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs select-none pt-safe-top transition-all">
+      <div className="w-full max-w-7xl mx-auto h-14 md:h-16 px-3.5 sm:px-4 md:px-6 lg:px-8 flex items-center justify-between gap-3">
+        {/* Left: Brand Logo / Back Button (Mobile) or Breadcrumbs / Screen Title (Desktop) */}
+        <div className="flex items-center gap-2.5 md:gap-4 min-w-0 flex-1">
+          {/* Mobile Back / Brand */}
+          <div className="md:hidden flex items-center gap-2">
+            {isSubScreen ? (
+              <button
+                id="header-back-button"
+                onClick={() => onNavigate('home')}
+                className="w-8 h-8 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 active:scale-95 transition-all shrink-0"
+                title="Go Back to Dashboard"
+              >
+                <span className="material-symbols-outlined text-[20px]">arrow_back</span>
+              </button>
+            ) : (
+              <button
+                onClick={() => onNavigate('home')}
+                className="flex items-center shrink-0 active:scale-95 transition-transform"
+              >
+                <img
+                  src={ASSETS.beaconLogo}
+                  alt="BEACON IAS"
+                  className="h-8 w-8 rounded-xl object-cover ring-2 ring-amber-400/50 shadow-sm"
+                />
+              </button>
             )}
+          </div>
+
+          {/* Desktop Breadcrumbs & Title */}
+          <div className="min-w-0 flex flex-col justify-center">
+            <div className="hidden md:flex items-center gap-1.5 text-xs text-slate-400 font-medium">
+              <span>Beacon OS</span>
+              <span>/</span>
+              <span className="capitalize text-slate-600 font-semibold">{role} Workspace</span>
+              <span>/</span>
+              <span className="text-blue-600 font-bold">{getTitle()}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <h1 className="font-bold text-sm md:text-base text-slate-900 tracking-tight truncate font-sans">
+                {getTitle()}
+              </h1>
+              <span className="px-2 py-0.5 rounded-md bg-blue-50 text-blue-800 text-[10px] md:text-xs font-bold uppercase tracking-wider shrink-0 border border-blue-100">
+                {getRoleLabel()}
+              </span>
+            </div>
           </div>
         </div>
 
-        {/* Right Action Icons */}
-        <div className="flex items-center gap-1 shrink-0">
-          {/* Quick Search */}
+        {/* Center: Desktop Expanded Search Bar Trigger */}
+        <div className="hidden md:flex items-center flex-1 max-w-md mx-4">
+          <button
+            onClick={onOpenSearch}
+            className="w-full flex items-center justify-between px-3.5 py-2 rounded-xl bg-slate-100/90 hover:bg-slate-200/80 text-slate-500 text-xs font-medium border border-slate-200 transition-all group"
+          >
+            <div className="flex items-center gap-2 truncate">
+              <span className="material-symbols-outlined text-[18px] text-slate-400 group-hover:text-slate-600">
+                search
+              </span>
+              <span className="truncate">Search syllabus, tests, mentors, doctrines...</span>
+            </div>
+            <kbd className="hidden lg:inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-white text-[10px] font-mono text-slate-500 border border-slate-200 shadow-2xs">
+              ⌘K
+            </kbd>
+          </button>
+        </div>
+
+        {/* Right Action Icons & Profile */}
+        <div className="flex items-center gap-1.5 md:gap-2 shrink-0">
+          {/* Quick AI Action (Desktop/Laptop) */}
+          <button
+            onClick={() => onNavigate('ai')}
+            className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-bold shadow-xs active:scale-95 transition-all"
+          >
+            <img src="/beacon-ai.svg" alt="Beacon AI" className="w-4 h-4 object-contain brightness-200" />
+            <span>Beacon AI</span>
+          </button>
+
+          {/* Quick Search Button (Mobile & Tablet) */}
           <button
             id="header-search-btn"
             onClick={onOpenSearch}
-            className="w-8 h-8 flex items-center justify-center rounded-xl text-slate-600 hover:bg-slate-100 active:scale-95 transition-all"
+            className="md:hidden w-8 h-8 flex items-center justify-center rounded-xl text-slate-600 hover:bg-slate-100 active:scale-95 transition-all"
             title="Search"
           >
             <span className="material-symbols-outlined text-[20px]">search</span>
           </button>
 
           {/* Notifications Trigger */}
-          <button
-            id="header-notifications-btn"
-            onClick={() => {
-              setShowNotifications(!showNotifications);
-              setShowProfileMenu(false);
-            }}
-            className="w-8 h-8 flex items-center justify-center rounded-xl text-slate-600 hover:bg-slate-100 active:scale-95 transition-all relative"
-            title="Notifications"
-          >
-            <span className="material-symbols-outlined text-[20px]">notifications</span>
-            {unreadCount > 0 && (
-              <span className="absolute top-1 right-1 min-w-[15px] h-[15px] px-0.5 rounded-full bg-rose-600 text-white text-[9px] font-bold flex items-center justify-center ring-2 ring-white animate-pulse">
-                {unreadCount}
-              </span>
+          <div className="relative">
+            <button
+              id="header-notifications-btn"
+              onClick={() => {
+                setShowNotifications(!showNotifications);
+                setShowProfileMenu(false);
+              }}
+              className="w-8 h-8 md:w-9 md:h-9 flex items-center justify-center rounded-xl text-slate-600 hover:bg-slate-100 active:scale-95 transition-all relative border border-transparent hover:border-slate-200"
+              title="Notifications"
+            >
+              <span className="material-symbols-outlined text-[20px] md:text-[22px]">notifications</span>
+              {unreadCount > 0 && (
+                <span className="absolute top-1 right-1 min-w-[16px] h-[16px] px-0.5 rounded-full bg-rose-600 text-white text-[9px] font-bold flex items-center justify-center ring-2 ring-white animate-pulse">
+                  {unreadCount}
+                </span>
+              )}
+            </button>
+
+            {/* Desktop / Floating Notification Dropdown */}
+            {showNotifications && (
+              <div className="absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200/90 py-2 z-50 animate-in fade-in zoom-in-95 duration-150">
+                <div className="px-4 py-2.5 border-b border-slate-100 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="material-symbols-outlined text-blue-600 text-[20px]">
+                      notifications_active
+                    </span>
+                    <span className="font-bold text-xs text-slate-900">
+                      Notifications ({notifications.length})
+                    </span>
+                  </div>
+                  <button
+                    onClick={onClearNotifications}
+                    className="text-blue-600 hover:underline text-[11px] font-medium"
+                  >
+                    Clear All
+                  </button>
+                </div>
+
+                <div className="max-h-80 overflow-y-auto custom-scrollbar p-2 space-y-1.5">
+                  {notifications.length === 0 ? (
+                    <div className="py-8 text-center text-xs text-slate-400">
+                      No new notifications. You're all caught up!
+                    </div>
+                  ) : (
+                    notifications.map((notif) => (
+                      <div
+                        key={notif.id}
+                        onClick={() => {
+                          onMarkNotificationRead(notif.id);
+                          if (notif.actionScreen) {
+                            onNavigate(notif.actionScreen);
+                            setShowNotifications(false);
+                          }
+                        }}
+                        className={`p-2.5 rounded-xl text-xs flex items-start gap-2.5 border transition-all cursor-pointer hover:border-blue-400 ${
+                          notif.read
+                            ? 'bg-slate-50 text-slate-600 border-slate-200/80'
+                            : 'bg-blue-50/60 text-slate-900 border-blue-200 shadow-xs'
+                        }`}
+                      >
+                        <span
+                          className={`material-symbols-outlined text-[18px] mt-0.5 shrink-0 ${
+                            notif.type === 'warning'
+                              ? 'text-rose-600'
+                              : notif.type === 'event'
+                              ? 'text-blue-600'
+                              : 'text-emerald-600'
+                          }`}
+                        >
+                          {notif.type === 'warning' ? 'warning' : notif.type === 'event' ? 'event' : 'info'}
+                        </span>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center justify-between gap-1">
+                            <p className="font-bold text-slate-900 text-xs truncate">{notif.title}</p>
+                            <span className="text-[10px] text-slate-400 font-mono shrink-0">{notif.timestamp}</span>
+                          </div>
+                          <p className="text-[11px] text-slate-600 mt-0.5 leading-relaxed line-clamp-2">{notif.message}</p>
+                          {notif.actionLabel && (
+                            <span className="inline-flex items-center gap-0.5 text-[10px] font-bold text-blue-600 mt-1 hover:underline">
+                              {notif.actionLabel}
+                              <span className="material-symbols-outlined text-[13px]">arrow_forward</span>
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
             )}
-          </button>
+          </div>
 
           {/* User Profile Avatar / Role Dropdown */}
           <div className="relative ml-0.5">
@@ -166,7 +272,7 @@ export const Header: React.FC<HeaderProps> = ({
                 setShowProfileMenu(!showProfileMenu);
                 setShowNotifications(false);
               }}
-              className="w-8 h-8 rounded-xl overflow-hidden ring-2 ring-blue-500/30 hover:ring-blue-600 transition-all active:scale-95 block shadow-xs"
+              className="w-8 h-8 md:w-9 md:h-9 rounded-xl overflow-hidden ring-2 ring-blue-500/30 hover:ring-blue-600 transition-all active:scale-95 flex items-center justify-center shadow-xs"
               title="Account Menu"
             >
               <img
@@ -178,7 +284,7 @@ export const Header: React.FC<HeaderProps> = ({
 
             {/* Profile / Role Selector Dropdown */}
             {showProfileMenu && (
-              <div className="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-slate-200/90 py-2 z-50 animate-in fade-in zoom-in-95 duration-150">
+              <div className="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-2xl border border-slate-200/90 py-2 z-50 animate-in fade-in zoom-in-95 duration-150">
                 <div className="px-3.5 py-2.5 border-b border-slate-100">
                   <div className="flex items-center gap-2.5">
                     <img
@@ -281,73 +387,6 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
       </div>
-
-      {/* Expandable Notification Sheet */}
-      {showNotifications && (
-        <div className="px-3.5 py-3 bg-white border-b border-slate-200 space-y-2 animate-in slide-in-from-top-2 shadow-lg max-h-80 overflow-y-auto custom-scrollbar">
-          <div className="flex items-center justify-between text-xs font-bold text-slate-900 pb-1 border-b border-slate-100">
-            <span className="flex items-center gap-1.5">
-              <span className="material-symbols-outlined text-blue-600 text-[18px]">notifications_active</span>
-              Notifications ({notifications.length})
-            </span>
-            <button
-              onClick={onClearNotifications}
-              className="text-blue-600 hover:underline text-[11px] font-medium"
-            >
-              Clear All
-            </button>
-          </div>
-
-          {notifications.length === 0 ? (
-            <div className="py-6 text-center text-xs text-slate-400">
-              No new notifications. You're all caught up!
-            </div>
-          ) : (
-            notifications.map((notif) => (
-              <div
-                key={notif.id}
-                onClick={() => {
-                  onMarkNotificationRead(notif.id);
-                  if (notif.actionScreen) {
-                    onNavigate(notif.actionScreen);
-                    setShowNotifications(false);
-                  }
-                }}
-                className={`p-2.5 rounded-xl text-xs flex items-start gap-2.5 border transition-all cursor-pointer hover:border-blue-400 ${
-                  notif.read
-                    ? 'bg-slate-50 text-slate-600 border-slate-200/80'
-                    : 'bg-blue-50/60 text-slate-900 border-blue-200 shadow-xs'
-                }`}
-              >
-                <span
-                  className={`material-symbols-outlined text-[18px] mt-0.5 shrink-0 ${
-                    notif.type === 'warning'
-                      ? 'text-rose-600'
-                      : notif.type === 'event'
-                      ? 'text-blue-600'
-                      : 'text-emerald-600'
-                  }`}
-                >
-                  {notif.type === 'warning' ? 'warning' : notif.type === 'event' ? 'event' : 'info'}
-                </span>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center justify-between gap-1">
-                    <p className="font-bold text-slate-900 text-xs truncate">{notif.title}</p>
-                    <span className="text-[10px] text-slate-400 font-mono shrink-0">{notif.timestamp}</span>
-                  </div>
-                  <p className="text-[11px] text-slate-600 mt-0.5 leading-relaxed line-clamp-2">{notif.message}</p>
-                  {notif.actionLabel && (
-                    <span className="inline-flex items-center gap-0.5 text-[10px] font-bold text-blue-600 mt-1 hover:underline">
-                      {notif.actionLabel}
-                      <span className="material-symbols-outlined text-[13px]">arrow_forward</span>
-                    </span>
-                  )}
-                </div>
-              </div>
-            ))
-          )}
-        </div>
-      )}
     </header>
   );
 };
