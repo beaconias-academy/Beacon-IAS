@@ -314,19 +314,6 @@ export const AiAssistantView: React.FC = () => {
             </div>
           </div>
 
-          {/* Quick Prompt Chips (Horizontal) */}
-          <div className="px-4 py-2 bg-slate-100/60 border-b border-slate-200 flex gap-2 overflow-x-auto custom-scrollbar shrink-0">
-            {starterChips.map((chip, idx) => (
-              <button
-                key={idx}
-                onClick={() => handleSendMessage(chip.prompt)}
-                className="px-3 py-1 rounded-lg bg-white hover:bg-blue-50 text-slate-700 hover:text-blue-700 text-xs font-semibold border border-slate-200 shadow-2xs shrink-0 transition-colors whitespace-nowrap"
-              >
-                {chip.label}
-              </button>
-            ))}
-          </div>
-
           {/* Chat Messages Stream */}
           <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4 custom-scrollbar">
             {messages.map((msg) => {
@@ -522,8 +509,26 @@ export const AiAssistantView: React.FC = () => {
             <div ref={messagesEndRef} />
           </div>
 
+          {/* Quick Prompt Suggestions at Bottom above Input Bar */}
+          <div className="px-3 md:px-4 py-2 bg-slate-50 border-t border-slate-200 flex items-center gap-2 overflow-x-auto custom-scrollbar shrink-0">
+            <div className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono shrink-0">
+              <span className="material-symbols-outlined text-[14px] text-amber-500">lightbulb</span>
+              <span>Suggestions:</span>
+            </div>
+            {starterChips.map((chip, idx) => (
+              <button
+                key={idx}
+                type="button"
+                onClick={() => handleSendMessage(chip.prompt)}
+                className="px-3 py-1.5 rounded-xl bg-white hover:bg-blue-50 text-slate-700 hover:text-blue-700 text-xs font-semibold border border-slate-200 hover:border-blue-300 shadow-2xs shrink-0 transition-all active:scale-95 whitespace-nowrap cursor-pointer"
+              >
+                {chip.label}
+              </button>
+            ))}
+          </div>
+
           {/* Input Bar */}
-          <div className="p-3 md:p-4 bg-slate-50 border-t border-slate-200">
+          <div className="p-3 md:p-4 bg-slate-50 border-t border-slate-200/80">
             {isVoiceRecording ? (
               <div className="flex items-center justify-between p-3 bg-rose-50 border border-rose-200 rounded-2xl animate-pulse">
                 <div className="flex items-center gap-2 text-rose-700 text-xs font-bold">
