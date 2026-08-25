@@ -197,9 +197,9 @@ export const AiAssistantView: React.FC = () => {
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto h-[calc(100vh-7.5rem)] min-h-[600px] pb-20 md:pb-6 p-2 sm:p-4 md:p-6 lg:p-8 animate-in fade-in duration-200">
+    <div className="w-full max-w-7xl mx-auto h-[calc(100vh-5.5rem)] min-h-[500px] pb-20 md:pb-4 p-2 sm:p-3 md:p-4 lg:p-6 animate-in fade-in duration-200">
       {/* 2-Column Responsive Layout on Tablet & Desktop/Laptop */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5 lg:gap-6 h-full items-stretch">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-3.5 md:gap-4 lg:gap-6 h-full items-stretch">
         {/* Left Column (4 cols on md/lg): AI Controls, Syllabus Selector, Quick Prompts */}
         <aside className="hidden md:flex md:col-span-4 lg:col-span-4 flex-col bg-white rounded-3xl p-4 lg:p-5 border border-slate-200 shadow-sm space-y-4 lg:space-y-5 overflow-y-auto custom-scrollbar">
           {/* Persona Card */}

@@ -25,7 +25,12 @@ export function AppContent() {
   const [role, setRole] = useState<AppRole>('student');
   const [currentScreen, setCurrentScreen] = useState<ScreenId>('home');
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState<boolean>(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth < 1024;
+    }
+    return false;
+  });
 
   // Persistent Global Store
   const {

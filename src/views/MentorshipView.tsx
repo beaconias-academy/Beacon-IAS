@@ -57,7 +57,7 @@ export const MentorshipView: React.FC<MentorshipViewProps> = ({
   // Live Video Room Overlay
   if (inLiveCall) {
     return (
-      <div className="w-full max-w-7xl mx-auto h-[calc(100vh-8rem)] min-h-[600px] bg-slate-950 text-white rounded-3xl overflow-hidden shadow-2xl relative flex flex-col animate-in fade-in duration-200">
+      <div className="w-full max-w-7xl mx-auto h-[calc(100vh-5.5rem)] min-h-[500px] bg-slate-950 text-white rounded-3xl overflow-hidden shadow-2xl relative flex flex-col animate-in fade-in duration-200">
         {/* Top Video Status Header */}
         <div className="px-5 py-3.5 bg-slate-900/90 backdrop-blur-md border-b border-white/10 flex items-center justify-between z-10 shrink-0">
           <div className="flex items-center gap-3">
