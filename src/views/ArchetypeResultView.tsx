@@ -56,10 +56,10 @@ export const ArchetypeResultView: React.FC<ArchetypeResultViewProps> = ({
         </div>
       </section>
 
-      {/* 2-Column Responsive Split */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        {/* Left Column (6 cols on lg): Cognitive Profile Breakdown */}
-        <div className="lg:col-span-6 space-y-6">
+      {/* 2-Column Responsive Split on Tablet & Laptop/Desktop */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+        {/* Left Column (6 cols on md/lg): Cognitive Profile Breakdown */}
+        <div className="md:col-span-6 lg:col-span-6 space-y-6">
           <section className="rounded-3xl p-6 bg-slate-900 text-white space-y-5 shadow-lg relative overflow-hidden">
             <div className="absolute top-0 right-0 w-48 h-48 bg-blue-600/20 rounded-full blur-3xl pointer-events-none" />
 
@@ -104,8 +104,8 @@ export const ArchetypeResultView: React.FC<ArchetypeResultViewProps> = ({
           </section>
         </div>
 
-        {/* Right Column (6 cols on lg): Strengths & Recommended Career Tracks */}
-        <div className="lg:col-span-6 space-y-6">
+        {/* Right Column (6 cols on md/lg): Strengths & Recommended Career Tracks */}
+        <div className="md:col-span-6 lg:col-span-6 space-y-6">
           {/* Core Strengths Checklist */}
           <section className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
             <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider font-mono">

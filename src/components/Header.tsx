@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AppRole, ScreenId, AppNotification } from '../types';
 import { ASSETS } from '../data/mockData';
 
@@ -7,6 +7,8 @@ interface HeaderProps {
   role: AppRole;
   unreadCount: number;
   notifications: AppNotification[];
+  isSidebarCollapsed?: boolean;
+  onToggleSidebar?: () => void;
   onNavigate: (screen: ScreenId) => void;
   onRoleChange: (role: AppRole) => void;
   onOpenSearch: () => void;
@@ -19,6 +21,8 @@ export const Header: React.FC<HeaderProps> = ({
   role,
   unreadCount,
   notifications,
+  isSidebarCollapsed = false,
+  onToggleSidebar,
   onNavigate,
   onRoleChange,
   onOpenSearch,
@@ -27,6 +31,22 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
+
+  // Keyboard shortcut listener (Ctrl+K for search, Ctrl+B for sidebar toggle)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        onOpenSearch();
+      }
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'b' && onToggleSidebar) {
+        e.preventDefault();
+        onToggleSidebar();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onOpenSearch, onToggleSidebar]);
 
   // Get clean screen title
   const getTitle = () => {
@@ -84,16 +104,16 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <header className="sticky top-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs select-none pt-safe-top transition-all">
-      <div className="w-full max-w-7xl mx-auto h-14 md:h-16 px-3.5 sm:px-4 md:px-6 lg:px-8 flex items-center justify-between gap-3">
-        {/* Left: Brand Logo / Back Button (Mobile) or Breadcrumbs / Screen Title (Desktop) */}
-        <div className="flex items-center gap-2.5 md:gap-4 min-w-0 flex-1">
-          {/* Mobile Back / Brand */}
+      <div className="w-full max-w-7xl mx-auto h-14 md:h-16 px-3 sm:px-4 md:px-6 lg:px-8 flex items-center justify-between gap-3">
+        {/* Left: Sidebar Toggle (Tablet/Laptop) or Mobile Brand/Back */}
+        <div className="flex items-center gap-2.5 md:gap-3 min-w-0 flex-1">
+          {/* Mobile Back / Brand Icon */}
           <div className="md:hidden flex items-center gap-2">
             {isSubScreen ? (
               <button
                 id="header-back-button"
                 onClick={() => onNavigate('home')}
-                className="w-8 h-8 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 active:scale-95 transition-all shrink-0"
+                className="w-8 h-8 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 active:scale-95 transition-all shrink-0 cursor-pointer"
                 title="Go Back to Dashboard"
               >
                 <span className="material-symbols-outlined text-[20px]">arrow_back</span>
@@ -101,7 +121,7 @@ export const Header: React.FC<HeaderProps> = ({
             ) : (
               <button
                 onClick={() => onNavigate('home')}
-                className="flex items-center shrink-0 active:scale-95 transition-transform"
+                className="flex items-center shrink-0 active:scale-95 transition-transform cursor-pointer"
               >
                 <img
                   src={ASSETS.beaconLogo}
@@ -112,10 +132,23 @@ export const Header: React.FC<HeaderProps> = ({
             )}
           </div>
 
-          {/* Desktop Breadcrumbs & Title */}
+          {/* Desktop/Tablet Sidebar Collapse Toggle */}
+          {onToggleSidebar && (
+            <button
+              onClick={onToggleSidebar}
+              className="hidden md:flex w-9 h-9 items-center justify-center rounded-xl text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200/80 active:scale-95 transition-all shrink-0 cursor-pointer border border-slate-200/80"
+              title={isSidebarCollapsed ? 'Expand Sidebar (Ctrl+B)' : 'Collapse Sidebar (Ctrl+B)'}
+            >
+              <span className="material-symbols-outlined text-[20px]">
+                {isSidebarCollapsed ? 'dock_to_right' : 'dock_to_left'}
+              </span>
+            </button>
+          )}
+
+          {/* Breadcrumbs & Title */}
           <div className="min-w-0 flex flex-col justify-center">
-            <div className="hidden md:flex items-center gap-1.5 text-xs text-slate-400 font-medium">
-              <span>Beacon OS</span>
+            <div className="hidden md:flex items-center gap-1.5 text-[11px] text-slate-400 font-medium truncate">
+              <span>Beacon IAS</span>
               <span>/</span>
               <span className="capitalize text-slate-600 font-semibold">{role} Workspace</span>
               <span>/</span>
@@ -132,19 +165,19 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
 
-        {/* Center: Desktop Expanded Search Bar Trigger */}
-        <div className="hidden md:flex items-center flex-1 max-w-md mx-4">
+        {/* Center: Search Bar Trigger (Tablet & Laptop) */}
+        <div className="hidden md:flex items-center flex-1 max-w-sm lg:max-w-md mx-2 lg:mx-4">
           <button
             onClick={onOpenSearch}
-            className="w-full flex items-center justify-between px-3.5 py-2 rounded-xl bg-slate-100/90 hover:bg-slate-200/80 text-slate-500 text-xs font-medium border border-slate-200 transition-all group"
+            className="w-full flex items-center justify-between px-3.5 py-2 rounded-xl bg-slate-100/90 hover:bg-slate-200/80 text-slate-500 text-xs font-medium border border-slate-200 transition-all group cursor-pointer"
           >
             <div className="flex items-center gap-2 truncate">
               <span className="material-symbols-outlined text-[18px] text-slate-400 group-hover:text-slate-600">
                 search
               </span>
-              <span className="truncate">Search syllabus, tests, mentors, doctrines...</span>
+              <span className="truncate">Search exams, notes, AI mentor...</span>
             </div>
-            <kbd className="hidden lg:inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-white text-[10px] font-mono text-slate-500 border border-slate-200 shadow-2xs">
+            <kbd className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-white text-[10px] font-mono text-slate-500 border border-slate-200 shadow-2xs">
               ⌘K
             </kbd>
           </button>
@@ -152,20 +185,21 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Right Action Icons & Profile */}
         <div className="flex items-center gap-1.5 md:gap-2 shrink-0">
-          {/* Quick AI Action (Desktop/Laptop) */}
+          {/* Quick AI Action (Tablet & Laptop) */}
           <button
             onClick={() => onNavigate('ai')}
-            className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-bold shadow-xs active:scale-95 transition-all"
+            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-bold shadow-xs active:scale-95 transition-all cursor-pointer"
+            title="Open Beacon AI Mentor"
           >
             <img src="/beacon-ai.svg" alt="Beacon AI" className="w-4 h-4 object-contain brightness-200" />
-            <span>Beacon AI</span>
+            <span className="hidden lg:inline">Beacon AI</span>
           </button>
 
-          {/* Quick Search Button (Mobile & Tablet) */}
+          {/* Quick Search Button (Mobile only) */}
           <button
             id="header-search-btn"
             onClick={onOpenSearch}
-            className="md:hidden w-8 h-8 flex items-center justify-center rounded-xl text-slate-600 hover:bg-slate-100 active:scale-95 transition-all"
+            className="md:hidden w-8 h-8 flex items-center justify-center rounded-xl text-slate-600 hover:bg-slate-100 active:scale-95 transition-all cursor-pointer"
             title="Search"
           >
             <span className="material-symbols-outlined text-[20px]">search</span>
@@ -179,7 +213,7 @@ export const Header: React.FC<HeaderProps> = ({
                 setShowNotifications(!showNotifications);
                 setShowProfileMenu(false);
               }}
-              className="w-8 h-8 md:w-9 md:h-9 flex items-center justify-center rounded-xl text-slate-600 hover:bg-slate-100 active:scale-95 transition-all relative border border-transparent hover:border-slate-200"
+              className="w-8 h-8 md:w-9 md:h-9 flex items-center justify-center rounded-xl text-slate-600 hover:bg-slate-100 active:scale-95 transition-all relative border border-transparent hover:border-slate-200 cursor-pointer"
               title="Notifications"
             >
               <span className="material-symbols-outlined text-[20px] md:text-[22px]">notifications</span>
@@ -204,7 +238,7 @@ export const Header: React.FC<HeaderProps> = ({
                   </div>
                   <button
                     onClick={onClearNotifications}
-                    className="text-blue-600 hover:underline text-[11px] font-medium"
+                    className="text-blue-600 hover:underline text-[11px] font-medium cursor-pointer"
                   >
                     Clear All
                   </button>
@@ -272,7 +306,7 @@ export const Header: React.FC<HeaderProps> = ({
                 setShowProfileMenu(!showProfileMenu);
                 setShowNotifications(false);
               }}
-              className="w-8 h-8 md:w-9 md:h-9 rounded-xl overflow-hidden ring-2 ring-blue-500/30 hover:ring-blue-600 transition-all active:scale-95 flex items-center justify-center shadow-xs"
+              className="w-8 h-8 md:w-9 md:h-9 rounded-xl overflow-hidden ring-2 ring-blue-500/30 hover:ring-blue-600 transition-all active:scale-95 flex items-center justify-center shadow-xs cursor-pointer"
               title="Account Menu"
             >
               <img
@@ -303,8 +337,8 @@ export const Header: React.FC<HeaderProps> = ({
                 </div>
 
                 <div className="px-1.5 py-1.5">
-                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2.5 py-1">
-                    Switch App Role
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2.5 py-1 font-mono">
+                    Switch Active Mode
                   </p>
                   <button
                     onClick={() => {
@@ -312,7 +346,7 @@ export const Header: React.FC<HeaderProps> = ({
                       onNavigate('home');
                       setShowProfileMenu(false);
                     }}
-                    className={`w-full text-left px-2.5 py-2 rounded-xl text-xs flex items-center justify-between transition-colors ${
+                    className={`w-full text-left px-2.5 py-2 rounded-xl text-xs flex items-center justify-between transition-colors cursor-pointer ${
                       role === 'student'
                         ? 'bg-blue-50 text-blue-700 font-bold'
                         : 'text-slate-700 hover:bg-slate-50'
@@ -333,15 +367,15 @@ export const Header: React.FC<HeaderProps> = ({
                       onNavigate('mentor-dashboard');
                       setShowProfileMenu(false);
                     }}
-                    className={`w-full text-left px-2.5 py-2 rounded-xl text-xs flex items-center justify-between transition-colors ${
+                    className={`w-full text-left px-2.5 py-2 rounded-xl text-xs flex items-center justify-between transition-colors cursor-pointer ${
                       role === 'mentor'
                         ? 'bg-blue-50 text-blue-700 font-bold'
                         : 'text-slate-700 hover:bg-slate-50'
                     }`}
                   >
                     <span className="flex items-center gap-2">
-                      <span className="material-symbols-outlined text-[18px]">psychology</span>
-                      Mentor Diagnostics
+                      <span className="material-symbols-outlined text-[18px]">supervisor_account</span>
+                      Faculty Portal
                     </span>
                     {role === 'mentor' && (
                       <span className="material-symbols-outlined text-[16px] text-blue-600">check</span>
@@ -354,7 +388,7 @@ export const Header: React.FC<HeaderProps> = ({
                       onNavigate('admin-analytics');
                       setShowProfileMenu(false);
                     }}
-                    className={`w-full text-left px-2.5 py-2 rounded-xl text-xs flex items-center justify-between transition-colors ${
+                    className={`w-full text-left px-2.5 py-2 rounded-xl text-xs flex items-center justify-between transition-colors cursor-pointer ${
                       role === 'admin'
                         ? 'bg-blue-50 text-blue-700 font-bold'
                         : 'text-slate-700 hover:bg-slate-50'
@@ -376,7 +410,7 @@ export const Header: React.FC<HeaderProps> = ({
                       onNavigate('passport');
                       setShowProfileMenu(false);
                     }}
-                    className="w-full text-left px-2.5 py-1.5 rounded-xl text-xs text-slate-700 hover:bg-slate-50 flex items-center gap-2"
+                    className="w-full text-left px-2.5 py-1.5 rounded-xl text-xs text-slate-700 hover:bg-slate-50 flex items-center gap-2 cursor-pointer"
                   >
                     <span className="material-symbols-outlined text-[18px] text-slate-500">badge</span>
                     View Student Passport

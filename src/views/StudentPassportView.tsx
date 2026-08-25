@@ -47,10 +47,10 @@ export const StudentPassportView: React.FC<StudentPassportViewProps> = ({
 
   return (
     <div className="w-full max-w-7xl mx-auto pb-24 md:pb-12 p-3 sm:p-4 md:p-6 lg:p-8 space-y-6 animate-in fade-in duration-200">
-      {/* 2-Column Responsive Layout on Desktop/Laptop */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        {/* Left Column (5 cols on lg): 3D Flip Passport Card & Export Action */}
-        <div className="lg:col-span-5 space-y-4">
+      {/* 2-Column Responsive Layout on Tablet & Desktop/Laptop */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+        {/* Left Column (5 cols on md/lg): 3D Flip Passport Card & Export Action */}
+        <div className="md:col-span-5 lg:col-span-5 space-y-4">
           <div className="flex items-center justify-between px-1">
             <span className="text-xs font-bold text-slate-500 uppercase tracking-wider font-mono">
               Verified Digital ID
@@ -158,8 +158,8 @@ export const StudentPassportView: React.FC<StudentPassportViewProps> = ({
           </div>
         </div>
 
-        {/* Right Column (7 cols on lg): Academic Details & Micro Credentials */}
-        <div className="lg:col-span-7 space-y-5">
+        {/* Right Column (7 cols on md/lg): Academic Details & Micro Credentials */}
+        <div className="md:col-span-7 lg:col-span-7 space-y-5">
           {/* Verified Academic & Enrolment Details */}
           <section className="rounded-3xl p-6 bg-white border border-slate-200 shadow-sm space-y-4">
             <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider font-mono">

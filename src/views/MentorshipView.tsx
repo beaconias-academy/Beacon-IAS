@@ -74,9 +74,9 @@ export const MentorshipView: React.FC<MentorshipViewProps> = ({
         </div>
 
         {/* Video Canvas Split Area */}
-        <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-4 p-4 min-h-0">
-          {/* Main Mentor Feed (8 cols on lg) */}
-          <div className="lg:col-span-8 relative bg-slate-900 rounded-2xl overflow-hidden flex items-center justify-center border border-white/10">
+        <div className="flex-1 grid grid-cols-1 md:grid-cols-12 gap-4 p-4 min-h-0">
+          {/* Main Mentor Feed (7-8 cols on md/lg) */}
+          <div className="md:col-span-7 lg:col-span-8 relative bg-slate-900 rounded-2xl overflow-hidden flex items-center justify-center border border-white/10">
             <img
               src={ASSETS.mentorAvatar}
               alt="Mentor Feed"
@@ -102,8 +102,8 @@ export const MentorshipView: React.FC<MentorshipViewProps> = ({
             </div>
           </div>
 
-          {/* Live Strategy Notes Deck (4 cols on lg) */}
-          <div className="lg:col-span-4 bg-slate-900/90 rounded-2xl p-4 border border-white/10 flex flex-col justify-between">
+          {/* Live Strategy Notes Deck (4-5 cols on md/lg) */}
+          <div className="md:col-span-5 lg:col-span-4 bg-slate-900/90 rounded-2xl p-4 border border-white/10 flex flex-col justify-between">
             <div className="space-y-2 flex-1">
               <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block font-mono">
                 Live Strategy Notes & Action Points
@@ -160,10 +160,10 @@ export const MentorshipView: React.FC<MentorshipViewProps> = ({
 
   return (
     <div className="w-full max-w-7xl mx-auto pb-24 md:pb-12 p-3 sm:p-4 md:p-6 lg:p-8 space-y-6 animate-in fade-in duration-200">
-      {/* 2-Column Responsive Layout on Laptop/Desktop */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        {/* Left Column (8 cols on lg): Faculty Mentors Directory */}
-        <div className="lg:col-span-8 space-y-5">
+      {/* 2-Column Responsive Layout on Tablet & Laptop/Desktop */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+        {/* Left Column (7-8 cols on md/lg): Faculty Mentors Directory */}
+        <div className="md:col-span-7 lg:col-span-8 space-y-5">
           <div>
             <h2 className="text-base md:text-lg font-bold text-slate-900 font-sans">Available Faculty Mentors</h2>
             <p className="text-xs text-slate-500">Book strategic evaluation calls with civil services officers and subject heads</p>
@@ -212,8 +212,8 @@ export const MentorshipView: React.FC<MentorshipViewProps> = ({
           </div>
         </div>
 
-        {/* Right Column (4 cols on lg): Scheduled Calls & Guidelines */}
-        <div className="lg:col-span-4 space-y-5">
+        {/* Right Column (4-5 cols on md/lg): Scheduled Calls & Guidelines */}
+        <div className="md:col-span-5 lg:col-span-4 space-y-5">
           <div className="space-y-3">
             <div className="flex items-center justify-between px-1">
               <h3 className="text-sm font-bold text-slate-900 font-sans">Scheduled Sessions</h3>

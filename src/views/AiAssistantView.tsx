@@ -198,10 +198,10 @@ export const AiAssistantView: React.FC = () => {
 
   return (
     <div className="w-full max-w-7xl mx-auto h-[calc(100vh-7.5rem)] min-h-[600px] pb-20 md:pb-6 p-2 sm:p-4 md:p-6 lg:p-8 animate-in fade-in duration-200">
-      {/* 2-Column Responsive Layout on Desktop/Laptop */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 h-full items-stretch">
-        {/* Left Column (4 cols on lg): AI Controls, Syllabus Selector, Quick Prompts */}
-        <aside className="hidden lg:flex lg:col-span-4 flex-col bg-white rounded-3xl p-5 border border-slate-200 shadow-sm space-y-5 overflow-y-auto custom-scrollbar">
+      {/* 2-Column Responsive Layout on Tablet & Desktop/Laptop */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5 lg:gap-6 h-full items-stretch">
+        {/* Left Column (4 cols on md/lg): AI Controls, Syllabus Selector, Quick Prompts */}
+        <aside className="hidden md:flex md:col-span-4 lg:col-span-4 flex-col bg-white rounded-3xl p-4 lg:p-5 border border-slate-200 shadow-sm space-y-4 lg:space-y-5 overflow-y-auto custom-scrollbar">
           {/* Persona Card */}
           <div className="space-y-2">
             <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-400 font-mono">
@@ -277,9 +277,9 @@ export const AiAssistantView: React.FC = () => {
           </div>
         </aside>
 
-        {/* Right Column (8 cols on lg): Interactive Chat Canvas */}
-        <div className="lg:col-span-8 flex flex-col h-full bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden relative">
-          {/* Top Persona Bar (Mobile & Tablet) */}
+        {/* Right Column (8 cols on md/lg): Interactive Chat Canvas */}
+        <div className="md:col-span-8 lg:col-span-8 flex flex-col h-full bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden relative">
+          {/* Top Persona Bar */}
           <div className="px-4 py-2.5 bg-slate-50 border-b border-slate-200 flex items-center justify-between gap-2 shrink-0">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center p-1.5 shadow-xs">
@@ -294,8 +294,8 @@ export const AiAssistantView: React.FC = () => {
               </div>
             </div>
 
-            {/* Mobile/Tablet Persona Tabs */}
-            <div className="lg:hidden flex bg-slate-200/80 p-0.5 rounded-xl gap-1">
+            {/* Mobile Persona Tabs (Hidden on md/lg where sidebar is present) */}
+            <div className="md:hidden flex bg-slate-200/80 p-0.5 rounded-xl gap-1">
               {[
                 { id: 'gs-fast' as const, label: 'GS-Fast' },
                 { id: 'mains-review' as const, label: 'Mains' },

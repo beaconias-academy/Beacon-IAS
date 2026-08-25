@@ -129,9 +129,9 @@ export const InstitutionalAdminView: React.FC<InstitutionalAdminViewProps> = ({
       </section>
 
       {/* 2-Column Grid: Cohort Readiness Distribution & Department Breakdown */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        {/* Cohort Readiness Distribution Chart (7 cols on lg) */}
-        <section className="lg:col-span-7 rounded-3xl p-6 bg-white border border-slate-200 shadow-sm space-y-4">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-5 lg:gap-6 items-start">
+        {/* Cohort Readiness Distribution Chart (7 cols on md/lg) */}
+        <section className="md:col-span-7 lg:col-span-7 rounded-3xl p-6 bg-white border border-slate-200 shadow-sm space-y-4">
           <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider font-mono">
             Cohort Readiness Distribution ({selectedBatch})
           </h3>
@@ -169,8 +169,8 @@ export const InstitutionalAdminView: React.FC<InstitutionalAdminViewProps> = ({
           </div>
         </section>
 
-        {/* Academic Stream Breakdown (5 cols on lg) */}
-        <section className="lg:col-span-5 rounded-3xl p-6 bg-white border border-slate-200 shadow-sm space-y-4">
+        {/* Academic Stream Breakdown (5 cols on md/lg) */}
+        <section className="md:col-span-5 lg:col-span-5 rounded-3xl p-6 bg-white border border-slate-200 shadow-sm space-y-4">
           <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider font-mono">
             Departmental Participation
           </h3>

@@ -25,6 +25,7 @@ export function AppContent() {
   const [role, setRole] = useState<AppRole>('student');
   const [currentScreen, setCurrentScreen] = useState<ScreenId>('home');
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState<boolean>(false);
 
   // Persistent Global Store
   const {
@@ -183,6 +184,8 @@ export function AppContent() {
         unreadCount={unreadNotificationsCount}
         readinessScore={readinessScore}
         profile={profile}
+        isCollapsed={isSidebarCollapsed}
+        onToggleCollapse={() => setIsSidebarCollapsed((prev) => !prev)}
         onNavigate={handleNavigate}
         onRoleChange={handleRoleChange}
       />
@@ -195,6 +198,8 @@ export function AppContent() {
           role={role}
           unreadCount={unreadNotificationsCount}
           notifications={notifications}
+          isSidebarCollapsed={isSidebarCollapsed}
+          onToggleSidebar={() => setIsSidebarCollapsed((prev) => !prev)}
           onNavigate={handleNavigate}
           onRoleChange={handleRoleChange}
           onOpenSearch={() => setIsSearchOpen(true)}

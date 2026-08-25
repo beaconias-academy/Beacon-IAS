@@ -51,10 +51,10 @@ export const StudentDashboardView: React.FC<StudentDashboardViewProps> = ({
 
   return (
     <div className="w-full max-w-7xl mx-auto pb-24 md:pb-12 p-3 sm:p-4 md:p-6 lg:p-8 space-y-6 animate-in fade-in duration-200">
-      {/* Top Section: Aspirant Hero Banner & Readiness Score (2 Column on LG screens) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 items-stretch">
-        {/* Aspirant Profile Hero Banner (7 cols on lg) */}
-        <section className="lg:col-span-7 bg-white rounded-3xl p-5 md:p-6 border border-slate-200 shadow-sm relative overflow-hidden flex flex-col justify-between">
+      {/* Top Section: Aspirant Hero Banner & Readiness Score (2 Column on Tablet & Laptop screens) */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5 lg:gap-6 items-stretch">
+        {/* Aspirant Profile Hero Banner (7 cols on md/lg) */}
+        <section className="md:col-span-7 lg:col-span-7 bg-white rounded-3xl p-5 md:p-6 border border-slate-200 shadow-sm relative overflow-hidden flex flex-col justify-between">
           <div className="flex items-start justify-between gap-3">
             <div className="flex items-center gap-4 min-w-0">
               <div className="relative w-16 h-16 md:w-20 md:h-20 shrink-0">
@@ -129,9 +129,9 @@ export const StudentDashboardView: React.FC<StudentDashboardViewProps> = ({
           </div>
         </section>
 
-        {/* Career Readiness Score Card (5 cols on lg) */}
+        {/* Career Readiness Score Card (5 cols on md/lg) */}
         <section
-          className="lg:col-span-5 rounded-3xl p-5 md:p-6 text-white shadow-md relative overflow-hidden flex flex-col justify-between"
+          className="md:col-span-5 lg:col-span-5 rounded-3xl p-5 md:p-6 text-white shadow-md relative overflow-hidden flex flex-col justify-between"
           style={{
             backgroundColor: '#1d4ed8',
             backgroundImage: 'linear-gradient(135deg, #1e40af 0%, #2563eb 50%, #1e3a8a 100%)',
@@ -298,10 +298,10 @@ export const StudentDashboardView: React.FC<StudentDashboardViewProps> = ({
         </div>
       </section>
 
-      {/* Main 2-Column Split: Competency & Tasks on Left (8 cols) + Alerts & Schedule Widgets on Right (4 cols) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-start">
-        {/* Left Column (8 cols): Competency Index + Today's Schedule */}
-        <div className="lg:col-span-8 space-y-6">
+      {/* Main 2-Column Split: Competency & Tasks on Left (7-8 cols) + Alerts & Schedule Widgets on Right (4-5 cols) */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-5 lg:gap-6 items-start">
+        {/* Left Column: Competency Index + Today's Schedule */}
+        <div className="md:col-span-7 lg:col-span-8 space-y-6">
           {/* Beacon Student Competency Index */}
           <section className="space-y-3">
             <div className="flex items-center justify-between px-1">
@@ -498,8 +498,8 @@ export const StudentDashboardView: React.FC<StudentDashboardViewProps> = ({
           </section>
         </div>
 
-        {/* Right Column (4 cols on lg): Alerts & Diagnostic Cards */}
-        <div className="lg:col-span-4 space-y-4">
+        {/* Right Column (4-5 cols): Alerts & Diagnostic Cards */}
+        <div className="md:col-span-5 lg:col-span-4 space-y-4">
           {/* Performance Drop Remediation Alert */}
           <section className="p-4 md:p-5 rounded-3xl bg-rose-50 border border-rose-200 flex items-start gap-3.5 shadow-2xs">
             <span className="material-symbols-outlined text-rose-600 mt-0.5 text-2xl shrink-0">crisis_alert</span>

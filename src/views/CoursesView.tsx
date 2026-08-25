@@ -79,10 +79,10 @@ export const CoursesView: React.FC<CoursesViewProps> = ({
 
   return (
     <div className="w-full max-w-7xl mx-auto pb-24 md:pb-12 p-3 sm:p-4 md:p-6 lg:p-8 animate-in fade-in duration-200">
-      {/* 2-Column Responsive Grid on Laptop/Desktop */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        {/* Left Main Video + Tabs Column (8 cols on lg) */}
-        <div className="lg:col-span-8 space-y-4">
+      {/* 2-Column Responsive Grid on Tablet & Laptop/Desktop */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-5 lg:gap-6 items-start">
+        {/* Left Main Video + Tabs Column (7-8 cols on md/lg) */}
+        <div className="md:col-span-7 lg:col-span-8 space-y-4">
           {/* Video Player Container */}
           <div className="w-full aspect-video bg-slate-950 rounded-2xl md:rounded-3xl relative overflow-hidden shadow-lg group">
             {/* Beacon IAS Video Watermark (Top Left) */}
@@ -381,8 +381,8 @@ export const CoursesView: React.FC<CoursesViewProps> = ({
           </div>
         </div>
 
-        {/* Right Sidebar Column (4 cols on lg): Playlist & Faculty Widget */}
-        <div className="hidden lg:block lg:col-span-4 space-y-5">
+        {/* Right Sidebar Column (4-5 cols on md/lg): Playlist & Faculty Widget */}
+        <div className="hidden md:block md:col-span-5 lg:col-span-4 space-y-5">
           {/* Chapter Playlist Box */}
           <div className="bg-white rounded-3xl p-5 border border-slate-200 shadow-sm space-y-3">
             <div className="flex items-center justify-between">

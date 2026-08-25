@@ -92,10 +92,10 @@ export const MentorDashboardView: React.FC<MentorDashboardViewProps> = ({
         </div>
       </section>
 
-      {/* 2-Column Responsive Layout on Desktop/Laptop */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        {/* Left Column (7 cols on lg): Priority Student Interventions */}
-        <div className="lg:col-span-7 space-y-4">
+      {/* 2-Column Responsive Layout on Tablet & Desktop/Laptop */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-5 lg:gap-6 items-start">
+        {/* Left Column (7 cols on md/lg): Priority Student Interventions */}
+        <div className="md:col-span-7 lg:col-span-7 space-y-4">
           <div className="px-1">
             <h3 className="text-sm md:text-base font-bold text-slate-900 font-sans">Priority Student Interventions</h3>
             <p className="text-xs text-slate-500">Mentees with flagged consistency drops requiring faculty guidance</p>
@@ -147,8 +147,8 @@ export const MentorDashboardView: React.FC<MentorDashboardViewProps> = ({
           </div>
         </div>
 
-        {/* Right Column (5 cols on lg): Mentorship Schedule & Faculty Quick Actions */}
-        <div className="lg:col-span-5 space-y-4">
+        {/* Right Column (5 cols on md/lg): Mentorship Schedule & Faculty Quick Actions */}
+        <div className="md:col-span-5 lg:col-span-5 space-y-4">
           <div className="bg-white rounded-3xl p-5 md:p-6 border border-slate-200 shadow-sm space-y-4">
             <h3 className="text-sm font-bold text-slate-900 font-sans">
               Upcoming Mentorship Schedule

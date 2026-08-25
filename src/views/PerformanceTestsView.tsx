@@ -213,10 +213,10 @@ export const PerformanceTestsView: React.FC<PerformanceTestsViewProps> = ({
             </div>
           </div>
         ) : (
-          /* Live Test 2-Column Split: Question on Left (8 cols) + Question Palette on Right (4 cols) */
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
-            {/* Question Area (8 cols on lg) */}
-            <div className="lg:col-span-8 bg-white rounded-3xl p-5 md:p-6 border border-slate-200 shadow-sm space-y-4">
+          /* Live Test 2-Column Split: Question on Left (7-8 cols) + Question Palette on Right (4-5 cols) */
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-start">
+            {/* Question Area (7-8 cols on md/lg) */}
+            <div className="md:col-span-7 lg:col-span-8 bg-white rounded-3xl p-5 md:p-6 border border-slate-200 shadow-sm space-y-4">
               <div className="flex items-center justify-between pb-3 border-b border-slate-100">
                 <span className="text-xs font-bold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-md border border-blue-100 uppercase">
                   Question {currentQIndex + 1} of {totalQ}
@@ -269,8 +269,8 @@ export const PerformanceTestsView: React.FC<PerformanceTestsViewProps> = ({
               </div>
             </div>
 
-            {/* Question Palette Sidebar (4 cols on lg) */}
-            <div className="lg:col-span-4 bg-white rounded-3xl p-5 border border-slate-200 shadow-sm space-y-4">
+            {/* Question Palette Sidebar (4-5 cols on md/lg) */}
+            <div className="md:col-span-5 lg:col-span-4 bg-white rounded-3xl p-5 border border-slate-200 shadow-sm space-y-4">
               <div className="flex items-center justify-between">
                 <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider font-mono">
                   Question Palette
